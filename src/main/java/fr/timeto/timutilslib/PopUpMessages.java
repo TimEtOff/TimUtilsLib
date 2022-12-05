@@ -1,4 +1,4 @@
-package fr.timeto.TimUtilsLib;
+package fr.timeto.timutilslib;
 
 import fr.theshark34.swinger.Swinger;
 import fr.theshark34.swinger.event.SwingerEvent;

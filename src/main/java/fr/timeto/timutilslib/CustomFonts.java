@@ -1,4 +1,4 @@
-package fr.timeto.TimUtilsLib;
+package fr.timeto.timutilslib;
 
 import java.awt.*;
 import java.io.IOException;
