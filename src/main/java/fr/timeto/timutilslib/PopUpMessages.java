@@ -31,6 +31,7 @@ public class PopUpMessages extends JPanel implements SwingerEventListener {
 
     private static Thread ifYesThread = new Thread();
     private static Thread ifNoThread = new Thread();
+    private static Thread whenOk = new Thread();
 
     private static void initFrame(String title, String msg, int messageType) {
         Thread t = new Thread(() -> {
@@ -141,6 +142,11 @@ public class PopUpMessages extends JPanel implements SwingerEventListener {
         initFrame(title, message, NORMAL_MESSAGE);
     }
 
+    public static void normalMessage(String title, String message, Thread whenOkClicked) {
+        initFrame(title, message, NORMAL_MESSAGE);
+        whenOk = whenOkClicked;
+    }
+
     public static void errorMessage(String title, String message) {
         initFrame(title, message, ERROR_MESSAGE);
     }
@@ -167,6 +173,8 @@ public class PopUpMessages extends JPanel implements SwingerEventListener {
     @Override
     public void onEvent(SwingerEvent e) {
         if (e.getSource() == okButton) {
+            whenOk.start();
+            whenOk = null;
             frame.dispose();
         } else if (e.getSource() == yesButton) {
             ifYesThread.start();
