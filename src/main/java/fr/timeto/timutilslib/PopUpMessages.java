@@ -173,8 +173,10 @@ public class PopUpMessages extends JPanel implements SwingerEventListener {
     @Override
     public void onEvent(SwingerEvent e) {
         if (e.getSource() == okButton) {
-            whenOk.start();
-            whenOk = null;
+            if (whenOk != null) {
+                whenOk.start();
+                whenOk = null;
+            }
             frame.dispose();
         } else if (e.getSource() == yesButton) {
             ifYesThread.start();
