@@ -91,7 +91,7 @@ public class TimFilesUtils {
         fw.close();
     }
 
-    private static void copyFiles(File src, File dest) throws IOException {
+    public static void copyFiles(File src, File dest) throws IOException {
         if(src.isDirectory()){
             //si le répertoire n'existe pas, créez-le
             if(!dest.exists()){
