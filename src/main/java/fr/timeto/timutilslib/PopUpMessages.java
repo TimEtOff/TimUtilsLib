@@ -33,7 +33,7 @@ public class PopUpMessages extends JPanel implements SwingerEventListener {
     private static Thread ifNoThread = new Thread();
     private static Thread whenOk = new Thread();
 
-    private static void initFrame(String title, String msg, int messageType) {
+    private static JFrame initFrame(String title, String msg, int messageType) {
         Thread t = new Thread(() -> {
             BufferedImage icon;
             if (messageType == ERROR_MESSAGE) {
@@ -57,6 +57,8 @@ public class PopUpMessages extends JPanel implements SwingerEventListener {
             frame.setVisible(true);
         });
         t.start();
+
+        return frame;
     }
 
     private PopUpMessages(String message, int messageType) {
@@ -138,29 +140,38 @@ public class PopUpMessages extends JPanel implements SwingerEventListener {
 
     }
 
-    public static void normalMessage(String title, String message) {
-        initFrame(title, message, NORMAL_MESSAGE);
+    public static JFrame normalMessage(String title, String message) {
+        return initFrame(title, message, NORMAL_MESSAGE);
     }
 
-    public static void normalMessage(String title, String message, Thread whenOkClicked) {
-        initFrame(title, message, NORMAL_MESSAGE);
+    public static JFrame normalMessage(String title, String message, Thread whenOkClicked) {
         whenOk = whenOkClicked;
+        return initFrame(title, message, NORMAL_MESSAGE);
     }
 
-    public static void errorMessage(String title, String message) {
-        initFrame(title, message, ERROR_MESSAGE);
+    public static JFrame errorMessage(String title, String message) {
+        return initFrame(title, message, ERROR_MESSAGE);
     }
 
-    public static void doneMessage(String title, String message) {
-        initFrame(title, message, DONE_MESSAGE);
+    public static JFrame errorMessage(String title, String message, Thread whenOkClicked) {
+        whenOk = whenOkClicked;
+        return initFrame(title, message, ERROR_MESSAGE);
     }
 
-    public static void yesNoMessage(String title, String message, Thread ifYes, Thread ifNo) {
-        initFrame(title, message, YES_NO_QUESTION);
+    public static JFrame doneMessage(String title, String message) {
+        return initFrame(title, message, DONE_MESSAGE);
+    }
 
+    public static JFrame doneMessage(String title, String message, Thread whenOkClicked) {
+        whenOk = whenOkClicked;
+        return initFrame(title, message, DONE_MESSAGE);
+    }
+
+    public static JFrame yesNoMessage(String title, String message, Thread ifYes, Thread ifNo) {
         ifYesThread = ifYes;
         ifNoThread = ifNo;
 
+        return initFrame(title, message, YES_NO_QUESTION);
     }
 
     @Override
