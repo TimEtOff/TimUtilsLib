@@ -34,6 +34,7 @@ public class PopUpMessages extends JPanel implements SwingerEventListener {
     private static Thread whenOk = new Thread();
 
     private static JFrame initFrame(String title, String msg, int messageType) {
+        CustomFonts.initFonts();
         Thread t = new Thread(() -> {
             BufferedImage icon;
             if (messageType == ERROR_MESSAGE) {

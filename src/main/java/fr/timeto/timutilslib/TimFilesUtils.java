@@ -1,8 +1,11 @@
 package fr.timeto.timutilslib;
 
+import fr.theshark34.swinger.abstractcomponents.AbstractProgressBar;
+
+import javax.swing.*;
 import java.io.*;
+import java.net.HttpURLConnection;
 import java.net.URL;
-import java.nio.file.Files;
 import java.util.Objects;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
@@ -46,34 +49,146 @@ public class TimFilesUtils {
     }
 
     public static void downloadFromInternet(String fileUrl, File dest) throws IOException {
-        URL url = new URL(fileUrl);
-        InputStream is = url.openStream();
-        OutputStream os = Files.newOutputStream(dest.toPath());
+        Runnable updatethread = new Runnable() {
+            public void run() {
+                try {
 
-        byte[] b = new byte[2048];
-        int length;
+                    URL url = new URL(fileUrl);
+                    HttpURLConnection httpConnection = (HttpURLConnection) (url.openConnection());
+                    long completeFileSize = httpConnection.getContentLength();
 
-        while ((length = is.read(b)) != -1) {
-            os.write(b, 0, length);
-        }
+                    BufferedInputStream in = new BufferedInputStream(httpConnection.getInputStream());
+                    FileOutputStream fos = new FileOutputStream(dest);
+                    BufferedOutputStream bout = new BufferedOutputStream(
+                            fos, 1024);
+                    byte[] data = new byte[1024];
+                    long downloadedFileSize = 0;
+                    int x = 0;
+                    while ((x = in.read(data, 0, 1024)) >= 0) {
+                        downloadedFileSize += x;
 
-        is.close();
-        os.close();
+                        // calculate progress
+                        final int currentProgress = (int) ((((double)downloadedFileSize) / ((double)completeFileSize)) * 100000d);
+
+                        bout.write(data, 0, x);
+                    }
+                    bout.close();
+                    in.close();
+                } catch (FileNotFoundException e) {
+                    PopUpMessages.errorMessage("FileNotFoundException", e.getMessage());
+                } catch (IOException e) {
+                    PopUpMessages.errorMessage("IOException", e.getMessage());
+                }
+            }
+        };
+        new Thread(updatethread).start();
     }
 
-    public static void deleteDirectory(File directory) throws NullPointerException {
+    public static void downloadFromInternet(String fileUrl, File dest, JProgressBar progressBar) throws IOException {
+        Runnable updatethread = new Runnable() {
+            public void run() {
+                try {
+
+                    URL url = new URL(fileUrl);
+                    HttpURLConnection httpConnection = (HttpURLConnection) (url.openConnection());
+                    long completeFileSize = httpConnection.getContentLength();
+
+                    BufferedInputStream in = new BufferedInputStream(httpConnection.getInputStream());
+                    FileOutputStream fos = new FileOutputStream(dest);
+                    BufferedOutputStream bout = new BufferedOutputStream(
+                            fos, 1024);
+                    byte[] data = new byte[1024];
+                    long downloadedFileSize = 0;
+                    int x = 0;
+                    while ((x = in.read(data, 0, 1024)) >= 0) {
+                        downloadedFileSize += x;
+
+                        // calculate progress
+                        final int currentProgress = (int) ((((double)downloadedFileSize) / ((double)completeFileSize)) * 100000d);
+
+                        // update progress bar
+                        progressBar.setMaximum((int) completeFileSize);
+                        SwingUtilities.invokeLater(new Runnable() {
+
+                            @Override
+                            public void run() {
+                                progressBar.setValue(currentProgress);
+                            }
+                        });
+
+                        bout.write(data, 0, x);
+                    }
+                    bout.close();
+                    in.close();
+                } catch (FileNotFoundException e) {
+                    PopUpMessages.errorMessage("FileNotFoundException", e.getMessage());
+                } catch (IOException e) {
+                    PopUpMessages.errorMessage("IOException", e.getMessage());
+                }
+            }
+        };
+        new Thread(updatethread).start();
+    }
+
+    public static void downloadFromInternet(String fileUrl, File dest, AbstractProgressBar progressBar) throws IOException {
+        Runnable updatethread = new Runnable() {
+            public void run() {
+                try {
+
+                    URL url = new URL(fileUrl);
+                    HttpURLConnection httpConnection = (HttpURLConnection) (url.openConnection());
+                    long completeFileSize = httpConnection.getContentLength();
+
+                    BufferedInputStream in = new BufferedInputStream(httpConnection.getInputStream());
+                    FileOutputStream fos = new FileOutputStream(dest);
+                    BufferedOutputStream bout = new BufferedOutputStream(
+                            fos, 1024);
+                    byte[] data = new byte[1024];
+                    long downloadedFileSize = 0;
+                    int x = 0;
+                    while ((x = in.read(data, 0, 1024)) >= 0) {
+                        downloadedFileSize += x;
+
+                        // calculate progress
+                        final int currentProgress = (int) ((((double)downloadedFileSize) / ((double)completeFileSize)) * 100000d);
+
+                        // update progress bar
+                        progressBar.setMaximum((int) completeFileSize);
+                        SwingUtilities.invokeLater(new Runnable() {
+
+                            @Override
+                            public void run() {
+                                progressBar.setValue(currentProgress);
+                            }
+                        });
+
+                        bout.write(data, 0, x);
+                    }
+                    bout.close();
+                    in.close();
+                } catch (FileNotFoundException e) {
+                    PopUpMessages.errorMessage("FileNotFoundException", e.getMessage());
+                } catch (IOException e) {
+                    PopUpMessages.errorMessage("IOException", e.getMessage());
+                }
+            }
+        };
+        new Thread(updatethread).start();
+    }
+
+    public static void deleteDirectory(File directory, boolean callback) throws NullPointerException {
         for (File file: Objects.requireNonNull(directory.listFiles())) {
             if (file.isDirectory()) {
-                deleteDirectory(file);
-                System.out.println("Deleted '" + file + "' directory");
+                deleteDirectory(file, callback);
+                if (callback) System.out.println("Deleted '" + file + "' directory");
             } else {
                 file.delete();
-                System.out.println("Deleted '" + file + "' file");
+                if (callback) System.out.println("Deleted '" + file + "' file");
             }
         }
     }
 
-    public static void copyFile(File src, File dest) throws IOException {
+    public static void copyFile(File src, File dest, boolean callback) throws IOException {
         // Créer l'objet File Reader
         FileReader fr = new FileReader(src);
         // Créer l'objet BufferedReader
@@ -89,14 +204,15 @@ public class TimFilesUtils {
             fw.flush();
         }
         fw.close();
+        if (callback) System.out.println("File "+ src + "  > " + dest);
     }
 
-    public static void copyFiles(File src, File dest) throws IOException {
+    public static void copyFiles(File src, File dest, boolean callback) throws IOException {
         if(src.isDirectory()){
             //si le répertoire n'existe pas, créez-le
             if(!dest.exists()){
                 dest.mkdir();
-                System.out.println("Dossier "+ src + "  > " + dest);
+                if (callback) System.out.println("Folder "+ src + "  > " + dest);
             }
             //lister le contenu du répertoire
             String[] files = src.list();
@@ -106,7 +222,7 @@ public class TimFilesUtils {
                 File srcF = new File(src, f);
                 File destF = new File(dest, f);
                 //copie récursive
-                copyFiles(srcF, destF);
+                copyFiles(srcF, destF, callback);
             }
         }else{
             //si src est un fichier, copiez-le.
@@ -122,7 +238,7 @@ public class TimFilesUtils {
 
             in.close();
             out.close();
-            System.out.println("Fichier " + src + " > " + dest);
+            if (callback) System.out.println("File " + src + " > " + dest);
         }
 
     }
