@@ -113,13 +113,7 @@ public class TimFilesUtils {
 
                         // update progress bar
                         progressBar.setMaximum((int) maximumLong);
-                        SwingUtilities.invokeLater(new Runnable() {
-
-                            @Override
-                            public void run() {
-                                progressBar.setValue((int) result);
-                            }
-                        });
+                        progressBar.setValue((int) progressLong);
 
                         bout.write(data, 0, x);
                     }
@@ -161,13 +155,7 @@ public class TimFilesUtils {
 
                         // update progress bar
                         progressBar.setMaximum((int) maximumLong);
-                        SwingUtilities.invokeLater(new Runnable() {
-
-                            @Override
-                            public void run() {
-                                progressBar.setValue((int) result);
-                            }
-                        });
+                        progressBar.setValue((int) progressLong);
 
                         bout.write(data, 0, x);
                     }
@@ -206,6 +194,8 @@ public class TimFilesUtils {
                         long progressLong = downloadedFileSize;
                         long maximumLong = completeFileSize;
                         long result = (progressLong * 100) / maximumLong;
+
+                        // update progress bar
                         comp.setText((int) result + "%");
 
                         bout.write(data, 0, x);
@@ -245,17 +235,11 @@ public class TimFilesUtils {
                         long progressLong = downloadedFileSize;
                         long maximumLong = completeFileSize;
                         long result = (progressLong * 100) / maximumLong;
-                        comp.setText((int) result + "%");
 
                         // update progress bar
                         progressBar.setMaximum((int) maximumLong);
-                        SwingUtilities.invokeLater(new Runnable() {
-
-                            @Override
-                            public void run() {
-                                progressBar.setValue((int) result);
-                            }
-                        });
+                        progressBar.setValue((int) progressLong);
+                        comp.setText((int) result + "%");
 
                         bout.write(data, 0, x);
                     }
@@ -294,17 +278,11 @@ public class TimFilesUtils {
                         long progressLong = downloadedFileSize;
                         long maximumLong = completeFileSize;
                         long result = (progressLong * 100) / maximumLong;
-                        comp.setText((int) result + "%");
 
                         // update progress bar
                         progressBar.setMaximum((int) maximumLong);
-                        SwingUtilities.invokeLater(new Runnable() {
-
-                            @Override
-                            public void run() {
-                                progressBar.setValue((int) result);
-                            }
-                        });
+                        progressBar.setValue((int) progressLong);
+                        comp.setText((int) result + "%");
 
                         bout.write(data, 0, x);
                     }
@@ -343,6 +321,8 @@ public class TimFilesUtils {
                         long progressLong = downloadedFileSize;
                         long maximumLong = completeFileSize;
                         long result = (progressLong * 100) / maximumLong;
+
+                        // update progress bar
                         comp.setText((int) result + "%");
 
                         bout.write(data, 0, x);
@@ -382,17 +362,11 @@ public class TimFilesUtils {
                         long progressLong = downloadedFileSize;
                         long maximumLong = completeFileSize;
                         long result = (progressLong * 100) / maximumLong;
-                        comp.setText((int) result + "%");
 
                         // update progress bar
                         progressBar.setMaximum((int) maximumLong);
-                        SwingUtilities.invokeLater(new Runnable() {
-
-                            @Override
-                            public void run() {
-                                progressBar.setValue((int) result);
-                            }
-                        });
+                        progressBar.setValue((int) progressLong);
+                        comp.setText((int) result + "%");
 
                         bout.write(data, 0, x);
                     }
@@ -431,17 +405,11 @@ public class TimFilesUtils {
                         long progressLong = downloadedFileSize;
                         long maximumLong = completeFileSize;
                         long result = (progressLong * 100) / maximumLong;
-                        comp.setText((int) result + "%");
 
                         // update progress bar
                         progressBar.setMaximum((int) maximumLong);
-                        SwingUtilities.invokeLater(new Runnable() {
-
-                            @Override
-                            public void run() {
-                                progressBar.setValue((int) result);
-                            }
-                        });
+                        progressBar.setValue((int) progressLong);
+                        comp.setText((int) result + "%");
 
                         bout.write(data, 0, x);
                     }
