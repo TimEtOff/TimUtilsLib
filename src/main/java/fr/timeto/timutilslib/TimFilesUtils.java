@@ -3,6 +3,7 @@ package fr.timeto.timutilslib;
 import fr.theshark34.swinger.abstractcomponents.AbstractProgressBar;
 
 import javax.swing.*;
+import javax.swing.text.JTextComponent;
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -151,6 +152,268 @@ public class TimFilesUtils {
 
                         // calculate progress
                         final int currentProgress = (int) ((((double)downloadedFileSize) / ((double)completeFileSize)) * 100000d);
+
+                        // update progress bar
+                        progressBar.setMaximum((int) completeFileSize);
+                        SwingUtilities.invokeLater(new Runnable() {
+
+                            @Override
+                            public void run() {
+                                progressBar.setValue(currentProgress);
+                            }
+                        });
+
+                        bout.write(data, 0, x);
+                    }
+                    bout.close();
+                    in.close();
+                } catch (FileNotFoundException e) {
+                    PopUpMessages.errorMessage("FileNotFoundException", e.getMessage());
+                } catch (IOException e) {
+                    PopUpMessages.errorMessage("IOException", e.getMessage());
+                }
+            }
+        };
+        new Thread(updatethread).start();
+    }
+
+    public static void downloadFromInternet(String fileUrl, File dest, JTextComponent comp) throws IOException {
+        Runnable updatethread = new Runnable() {
+            public void run() {
+                try {
+
+                    URL url = new URL(fileUrl);
+                    HttpURLConnection httpConnection = (HttpURLConnection) (url.openConnection());
+                    long completeFileSize = httpConnection.getContentLength();
+
+                    BufferedInputStream in = new BufferedInputStream(httpConnection.getInputStream());
+                    FileOutputStream fos = new FileOutputStream(dest);
+                    BufferedOutputStream bout = new BufferedOutputStream(
+                            fos, 1024);
+                    byte[] data = new byte[1024];
+                    long downloadedFileSize = 0;
+                    int x = 0;
+                    while ((x = in.read(data, 0, 1024)) >= 0) {
+                        downloadedFileSize += x;
+
+                        // calculate progress
+                        final int currentProgress = (int) ((((double)downloadedFileSize) / ((double)completeFileSize)) * 100000d);
+                        comp.setText(currentProgress + "%");
+
+                        bout.write(data, 0, x);
+                    }
+                    bout.close();
+                    in.close();
+                } catch (FileNotFoundException e) {
+                    PopUpMessages.errorMessage("FileNotFoundException", e.getMessage());
+                } catch (IOException e) {
+                    PopUpMessages.errorMessage("IOException", e.getMessage());
+                }
+            }
+        };
+        new Thread(updatethread).start();
+    }
+
+    public static void downloadFromInternet(String fileUrl, File dest, JProgressBar progressBar, JTextComponent comp) throws IOException {
+        Runnable updatethread = new Runnable() {
+            public void run() {
+                try {
+
+                    URL url = new URL(fileUrl);
+                    HttpURLConnection httpConnection = (HttpURLConnection) (url.openConnection());
+                    long completeFileSize = httpConnection.getContentLength();
+
+                    BufferedInputStream in = new BufferedInputStream(httpConnection.getInputStream());
+                    FileOutputStream fos = new FileOutputStream(dest);
+                    BufferedOutputStream bout = new BufferedOutputStream(
+                            fos, 1024);
+                    byte[] data = new byte[1024];
+                    long downloadedFileSize = 0;
+                    int x = 0;
+                    while ((x = in.read(data, 0, 1024)) >= 0) {
+                        downloadedFileSize += x;
+
+                        // calculate progress
+                        final int currentProgress = (int) ((((double)downloadedFileSize) / ((double)completeFileSize)) * 100000d);
+                        comp.setText(currentProgress + "%");
+
+                        // update progress bar
+                        progressBar.setMaximum((int) completeFileSize);
+                        SwingUtilities.invokeLater(new Runnable() {
+
+                            @Override
+                            public void run() {
+                                progressBar.setValue(currentProgress);
+                            }
+                        });
+
+                        bout.write(data, 0, x);
+                    }
+                    bout.close();
+                    in.close();
+                } catch (FileNotFoundException e) {
+                    PopUpMessages.errorMessage("FileNotFoundException", e.getMessage());
+                } catch (IOException e) {
+                    PopUpMessages.errorMessage("IOException", e.getMessage());
+                }
+            }
+        };
+        new Thread(updatethread).start();
+    }
+
+    public static void downloadFromInternet(String fileUrl, File dest, AbstractProgressBar progressBar, JTextComponent comp) throws IOException {
+        Runnable updatethread = new Runnable() {
+            public void run() {
+                try {
+
+                    URL url = new URL(fileUrl);
+                    HttpURLConnection httpConnection = (HttpURLConnection) (url.openConnection());
+                    long completeFileSize = httpConnection.getContentLength();
+
+                    BufferedInputStream in = new BufferedInputStream(httpConnection.getInputStream());
+                    FileOutputStream fos = new FileOutputStream(dest);
+                    BufferedOutputStream bout = new BufferedOutputStream(
+                            fos, 1024);
+                    byte[] data = new byte[1024];
+                    long downloadedFileSize = 0;
+                    int x = 0;
+                    while ((x = in.read(data, 0, 1024)) >= 0) {
+                        downloadedFileSize += x;
+
+                        // calculate progress
+                        final int currentProgress = (int) ((((double)downloadedFileSize) / ((double)completeFileSize)) * 100000d);
+                        comp.setText(currentProgress + "%");
+
+                        // update progress bar
+                        progressBar.setMaximum((int) completeFileSize);
+                        SwingUtilities.invokeLater(new Runnable() {
+
+                            @Override
+                            public void run() {
+                                progressBar.setValue(currentProgress);
+                            }
+                        });
+
+                        bout.write(data, 0, x);
+                    }
+                    bout.close();
+                    in.close();
+                } catch (FileNotFoundException e) {
+                    PopUpMessages.errorMessage("FileNotFoundException", e.getMessage());
+                } catch (IOException e) {
+                    PopUpMessages.errorMessage("IOException", e.getMessage());
+                }
+            }
+        };
+        new Thread(updatethread).start();
+    }
+
+    public static void downloadFromInternet(String fileUrl, File dest, JLabel comp) throws IOException {
+        Runnable updatethread = new Runnable() {
+            public void run() {
+                try {
+
+                    URL url = new URL(fileUrl);
+                    HttpURLConnection httpConnection = (HttpURLConnection) (url.openConnection());
+                    long completeFileSize = httpConnection.getContentLength();
+
+                    BufferedInputStream in = new BufferedInputStream(httpConnection.getInputStream());
+                    FileOutputStream fos = new FileOutputStream(dest);
+                    BufferedOutputStream bout = new BufferedOutputStream(
+                            fos, 1024);
+                    byte[] data = new byte[1024];
+                    long downloadedFileSize = 0;
+                    int x = 0;
+                    while ((x = in.read(data, 0, 1024)) >= 0) {
+                        downloadedFileSize += x;
+
+                        // calculate progress
+                        final int currentProgress = (int) ((((double)downloadedFileSize) / ((double)completeFileSize)) * 100000d);
+                        comp.setText(currentProgress + "%");
+
+                        bout.write(data, 0, x);
+                    }
+                    bout.close();
+                    in.close();
+                } catch (FileNotFoundException e) {
+                    PopUpMessages.errorMessage("FileNotFoundException", e.getMessage());
+                } catch (IOException e) {
+                    PopUpMessages.errorMessage("IOException", e.getMessage());
+                }
+            }
+        };
+        new Thread(updatethread).start();
+    }
+
+    public static void downloadFromInternet(String fileUrl, File dest, JProgressBar progressBar, JLabel comp) throws IOException {
+        Runnable updatethread = new Runnable() {
+            public void run() {
+                try {
+
+                    URL url = new URL(fileUrl);
+                    HttpURLConnection httpConnection = (HttpURLConnection) (url.openConnection());
+                    long completeFileSize = httpConnection.getContentLength();
+
+                    BufferedInputStream in = new BufferedInputStream(httpConnection.getInputStream());
+                    FileOutputStream fos = new FileOutputStream(dest);
+                    BufferedOutputStream bout = new BufferedOutputStream(
+                            fos, 1024);
+                    byte[] data = new byte[1024];
+                    long downloadedFileSize = 0;
+                    int x = 0;
+                    while ((x = in.read(data, 0, 1024)) >= 0) {
+                        downloadedFileSize += x;
+
+                        // calculate progress
+                        final int currentProgress = (int) ((((double)downloadedFileSize) / ((double)completeFileSize)) * 100000d);
+                        comp.setText(currentProgress + "%");
+
+                        // update progress bar
+                        progressBar.setMaximum((int) completeFileSize);
+                        SwingUtilities.invokeLater(new Runnable() {
+
+                            @Override
+                            public void run() {
+                                progressBar.setValue(currentProgress);
+                            }
+                        });
+
+                        bout.write(data, 0, x);
+                    }
+                    bout.close();
+                    in.close();
+                } catch (FileNotFoundException e) {
+                    PopUpMessages.errorMessage("FileNotFoundException", e.getMessage());
+                } catch (IOException e) {
+                    PopUpMessages.errorMessage("IOException", e.getMessage());
+                }
+            }
+        };
+        new Thread(updatethread).start();
+    }
+
+    public static void downloadFromInternet(String fileUrl, File dest, AbstractProgressBar progressBar, JLabel comp) throws IOException {
+        Runnable updatethread = new Runnable() {
+            public void run() {
+                try {
+
+                    URL url = new URL(fileUrl);
+                    HttpURLConnection httpConnection = (HttpURLConnection) (url.openConnection());
+                    long completeFileSize = httpConnection.getContentLength();
+
+                    BufferedInputStream in = new BufferedInputStream(httpConnection.getInputStream());
+                    FileOutputStream fos = new FileOutputStream(dest);
+                    BufferedOutputStream bout = new BufferedOutputStream(
+                            fos, 1024);
+                    byte[] data = new byte[1024];
+                    long downloadedFileSize = 0;
+                    int x = 0;
+                    while ((x = in.read(data, 0, 1024)) >= 0) {
+                        downloadedFileSize += x;
+
+                        // calculate progress
+                        final int currentProgress = (int) ((((double)downloadedFileSize) / ((double)completeFileSize)) * 100000d);
+                        comp.setText(currentProgress + "%");
 
                         // update progress bar
                         progressBar.setMaximum((int) completeFileSize);
