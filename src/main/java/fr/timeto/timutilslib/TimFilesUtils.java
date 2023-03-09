@@ -7,6 +7,8 @@ import javax.swing.text.JTextComponent;
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.text.CharacterIterator;
+import java.text.StringCharacterIterator;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.zip.ZipEntry;
@@ -381,45 +383,28 @@ public class TimFilesUtils {
         }
     }
 
-    public static String getBytesConverted(long bytes, boolean addUnity) {
-        String newBytes = "";
-        String B = "B";
-        String kB = "kB";
-        String MB = "MB";
-        String GB = "GB";
-        if (Locale.getDefault().toString().contains("fr_FR")) {
-            B = "o";
-            kB = "ko";
-            MB = "Mo";
-            GB = "Go";
+    public static String getBytesConverted(long bytes, boolean addUnit) {
+        String unit = "B";
+        if (Locale.getDefault().toString().contains("fr_")) {
+            unit = "o";
         }
-        if (bytes >= Math.pow(1, 9)) {
-            if (addUnity) {
-                newBytes = Math.pow(bytes, -9) + GB;
+        if (-1000 < bytes && bytes < 1000) {
+            if (addUnit) {
+                return bytes + " " + unit;
             } else {
-                newBytes = Math.pow(bytes, -9) + "";
+                return bytes + "";
             }
-        } else if (bytes >= Math.pow(1, 6)) {
-            if (addUnity) {
-                newBytes = Math.pow(bytes, -6) + MB;
-            } else {
-                newBytes = Math.pow(bytes, -6) + "";
-            }
-        } else if (bytes >= Math.pow(1, 3)) {
-            if (addUnity) {
-                newBytes = Math.pow(bytes, -3) + kB;
-            } else {
-                newBytes = Math.pow(bytes, -3) + "";
-            }
+        }
+        CharacterIterator ci = new StringCharacterIterator("kMGTPE");
+        while (bytes <= -999_950 || bytes >= 999_950) {
+            bytes /= 1000;
+            ci.next();
+        }
+        if (addUnit) {
+            return String.format("%.1f %c" + unit, bytes / 1000.0, ci.current());
         } else {
-            if (addUnity) {
-                newBytes = bytes + B;
-            } else {
-                newBytes = bytes + "";
-            }
+            return String.format("%.1f", bytes / 1000.0, ci.current());
         }
-
-        return newBytes;
     }
 
     public static void downloadFromInternet(String fileUrl, File dest, JTextComponent percentText, JTextComponent bytesText) throws IOException {
@@ -870,6 +855,43 @@ public class TimFilesUtils {
                 progressBar.setValue((int) progressLong);
                 percentText.setText((int) result + "%");
                 bytesText.setText(getBytesConverted(progressLong, true) + "/" + getBytesConverted(maximumLong, true));
+
+                bout.write(data, 0, x);
+            }
+            bout.close();
+            in.close();
+        } catch (FileNotFoundException e) {
+            PopUpMessages.errorMessage("FileNotFoundException", e.getMessage());
+        } catch (IOException e) {
+            PopUpMessages.errorMessage("IOException", e.getMessage());
+        }
+    }
+
+    public static void downloadFromInternetTest(String fileUrl, File dest) throws IOException {
+        try {
+
+            URL url = new URL(fileUrl);
+            HttpURLConnection httpConnection = (HttpURLConnection) (url.openConnection());
+            long completeFileSize = httpConnection.getContentLength();
+
+            BufferedInputStream in = new BufferedInputStream(httpConnection.getInputStream());
+            FileOutputStream fos = new FileOutputStream(dest);
+            BufferedOutputStream bout = new BufferedOutputStream(
+                    fos, 1024);
+            byte[] data = new byte[1024];
+            long downloadedFileSize = 0;
+            int x = 0;
+            while ((x = in.read(data, 0, 1024)) >= 0) {
+                downloadedFileSize += x;
+
+                // calculate progress
+                long progressLong = downloadedFileSize;
+                long maximumLong = completeFileSize;
+                long result = (progressLong * 100) / maximumLong;
+
+                // update progress bar
+                System.out.println("Percent: " + (int) result + "%");
+                System.out.println("Bytes: " + getBytesConverted(progressLong, true) + "/" + getBytesConverted(maximumLong, true));
 
                 bout.write(data, 0, x);
             }
