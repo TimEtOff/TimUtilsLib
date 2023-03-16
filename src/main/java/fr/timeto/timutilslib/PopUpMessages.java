@@ -8,6 +8,9 @@ import fr.theshark34.swinger.textured.STexturedButton;
 import javax.swing.*;
 
 import java.awt.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.awt.image.BufferedImage;
 import java.util.Objects;
 
@@ -49,7 +52,8 @@ public class PopUpMessages extends JPanel implements SwingerEventListener {
 
             frame.setTitle(title);
             frame.setSize(350, 225);
-            frame.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+            frame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+            frame.addWindowListener(exitListener);
             frame.setLocationRelativeTo(null);
             frame.setIconImage(icon);
             frame.setResizable(false);
@@ -61,6 +65,17 @@ public class PopUpMessages extends JPanel implements SwingerEventListener {
 
         return frame;
     }
+
+    private static WindowListener exitListener = new WindowAdapter() {
+
+        @Override
+        public void windowClosing(WindowEvent e) {
+            if (whenOk != null) {
+                whenOk.start();
+            }
+            frame.dispose();
+        }
+    };
 
     private PopUpMessages(String message, int messageType) {
         this.setLayout(null);
@@ -117,6 +132,7 @@ public class PopUpMessages extends JPanel implements SwingerEventListener {
         messageArea.setForeground(Color.WHITE);
         messageArea.setFont(CustomFonts.kollektifFont.deriveFont(16f));
         messageArea.setCaretColor(Color.RED);
+        messageArea.setSelectionColor(new Color(255, 20, 20, 200));
         messageArea.setOpaque(false);
         messageArea.setBorder(null);
         messageArea.setEditable(false);
