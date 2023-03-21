@@ -4,6 +4,7 @@ import fr.theshark34.swinger.abstractcomponents.AbstractProgressBar;
 
 import javax.swing.*;
 import javax.swing.text.JTextComponent;
+import java.awt.*;
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -11,46 +12,14 @@ import java.text.CharacterIterator;
 import java.text.StringCharacterIterator;
 import java.util.Locale;
 import java.util.Objects;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipInputStream;
 
 public class TimFilesUtils {
-    public static void unzip(String zipFilePath, String destDir) {
-        File dir = new File(destDir);
-        // create output directory if it doesn't exist
-        if (!dir.exists()) dir.mkdirs();
-        FileInputStream fis;
-        //buffer for read and write data to file
-        byte[] buffer = new byte[1024];
-        try {
-            fis = new FileInputStream(zipFilePath);
-            ZipInputStream zis = new ZipInputStream(fis);
-            ZipEntry ze = zis.getNextEntry();
-            while (ze != null) {
-                String fileName = ze.getName();
-                File newFile = new File(destDir + File.separator + fileName);
-                System.out.println("Unzipping to " + newFile.getAbsolutePath());
-                //create directories for sub directories in zip
-                new File(newFile.getParent()).mkdirs();
-                FileOutputStream fos = new FileOutputStream(newFile);
-                int len;
-                while ((len = zis.read(buffer)) > 0) {
-                    fos.write(buffer, 0, len);
-                }
-                fos.close();
-                //close this ZipEntry
-                zis.closeEntry();
-                ze = zis.getNextEntry();
-            }
-            //close last ZipEntry
-            zis.closeEntry();
-            zis.close();
-            fis.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
+    private static Window selectedWindow = null;
+    public static void setSelectedWindow(Window window) {
+        selectedWindow = window;
     }
+
+    public static Window getSelectedWindow() {return selectedWindow;}
 
     public static void downloadFromInternet(String fileUrl, File dest) throws IOException {
         try {
@@ -74,10 +43,53 @@ public class TimFilesUtils {
                 long maximumLong = completeFileSize;
                 long result = (progressLong * 100) / maximumLong;
 
+                if (selectedWindow != null) {
+                    try {
+                        Taskbar.getTaskbar().setWindowProgressValue(selectedWindow, (int) result);
+                    } catch (Exception ex) {
+                        try {
+                            Taskbar.getTaskbar().setProgressValue((int) result);
+                        } catch (UnsupportedOperationException ignored) {}
+                    }
+                } else {
+                    try {
+                        Taskbar.getTaskbar().setProgressValue((int) result);
+                    } catch (UnsupportedOperationException ignored) {}
+                }
+
                 bout.write(data, 0, x);
             }
             bout.close();
             in.close();
+
+            if (selectedWindow != null) {
+                try {
+                    Taskbar.getTaskbar().setWindowProgressValue(selectedWindow, 102);
+                } catch (Exception ex) {
+                    try {
+                        Taskbar.getTaskbar().setProgressValue(102);
+                    } catch (UnsupportedOperationException ignored) {}
+                }
+            } else {
+                try {
+                    Taskbar.getTaskbar().setProgressValue(102);
+                } catch (UnsupportedOperationException ignored) {}
+            }
+
+            if (selectedWindow != null) {
+                try {
+                    Taskbar.getTaskbar().requestWindowUserAttention(selectedWindow);
+                } catch (Exception ex) {
+                    try {
+                        Taskbar.getTaskbar().requestUserAttention(true, false);
+                    } catch (UnsupportedOperationException ignored) {}
+                }
+            } else {
+                try {
+                    Taskbar.getTaskbar().requestUserAttention(true, false);
+                } catch (UnsupportedOperationException ignored) {}
+            }
+
         } catch (FileNotFoundException e) {
             PopUpMessages.errorMessage("FileNotFoundException", e.getMessage());
         } catch (IOException e) {
@@ -106,6 +118,19 @@ public class TimFilesUtils {
                 long progressLong = downloadedFileSize;
                 long maximumLong = completeFileSize;
                 long result = (progressLong * 100) / maximumLong;
+                if (selectedWindow != null) {
+                    try {
+                        Taskbar.getTaskbar().setWindowProgressValue(selectedWindow, (int) result);
+                    } catch (Exception ex) {
+                        try {
+                            Taskbar.getTaskbar().setProgressValue((int) result);
+                        } catch (UnsupportedOperationException ignored) {}
+                    }
+                } else {
+                    try {
+                        Taskbar.getTaskbar().setProgressValue((int) result);
+                    } catch (UnsupportedOperationException ignored) {}
+                }
 
                 // update progress bar
                 progressBar.setMaximum((int) maximumLong);
@@ -115,6 +140,35 @@ public class TimFilesUtils {
             }
             bout.close();
             in.close();
+
+            if (selectedWindow != null) {
+                try {
+                    Taskbar.getTaskbar().setWindowProgressValue(selectedWindow, 102);
+                } catch (Exception ex) {
+                    try {
+                        Taskbar.getTaskbar().setProgressValue(102);
+                    } catch (UnsupportedOperationException ignored) {}
+                }
+            } else {
+                try {
+                    Taskbar.getTaskbar().setProgressValue(102);
+                } catch (UnsupportedOperationException ignored) {}
+            }
+
+            if (selectedWindow != null) {
+                try {
+                    Taskbar.getTaskbar().requestWindowUserAttention(selectedWindow);
+                } catch (Exception ex) {
+                    try {
+                        Taskbar.getTaskbar().requestUserAttention(true, false);
+                    } catch (UnsupportedOperationException ignored) {}
+                }
+            } else {
+                try {
+                    Taskbar.getTaskbar().requestUserAttention(true, false);
+                } catch (UnsupportedOperationException ignored) {}
+            }
+
         } catch (FileNotFoundException e) {
             PopUpMessages.errorMessage("FileNotFoundException", e.getMessage());
         } catch (IOException e) {
@@ -143,6 +197,19 @@ public class TimFilesUtils {
                 long progressLong = downloadedFileSize;
                 long maximumLong = completeFileSize;
                 long result = (progressLong * 100) / maximumLong;
+                if (selectedWindow != null) {
+                    try {
+                        Taskbar.getTaskbar().setWindowProgressValue(selectedWindow, (int) result);
+                    } catch (Exception ex) {
+                        try {
+                            Taskbar.getTaskbar().setProgressValue((int) result);
+                        } catch (UnsupportedOperationException ignored) {}
+                    }
+                } else {
+                    try {
+                        Taskbar.getTaskbar().setProgressValue((int) result);
+                    } catch (UnsupportedOperationException ignored) {}
+                }
 
                 // update progress bar
                 progressBar.setMaximum((int) maximumLong);
@@ -152,6 +219,35 @@ public class TimFilesUtils {
             }
             bout.close();
             in.close();
+
+            if (selectedWindow != null) {
+                try {
+                    Taskbar.getTaskbar().setWindowProgressValue(selectedWindow, 102);
+                } catch (Exception ex) {
+                    try {
+                        Taskbar.getTaskbar().setProgressValue(102);
+                    } catch (UnsupportedOperationException ignored) {}
+                }
+            } else {
+                try {
+                    Taskbar.getTaskbar().setProgressValue(102);
+                } catch (UnsupportedOperationException ignored) {}
+            }
+
+            if (selectedWindow != null) {
+                try {
+                    Taskbar.getTaskbar().requestWindowUserAttention(selectedWindow);
+                } catch (Exception ex) {
+                    try {
+                        Taskbar.getTaskbar().requestUserAttention(true, false);
+                    } catch (UnsupportedOperationException ignored) {}
+                }
+            } else {
+                try {
+                    Taskbar.getTaskbar().requestUserAttention(true, false);
+                } catch (UnsupportedOperationException ignored) {}
+            }
+
         } catch (FileNotFoundException e) {
             PopUpMessages.errorMessage("FileNotFoundException", e.getMessage());
         } catch (IOException e) {
@@ -180,6 +276,19 @@ public class TimFilesUtils {
                 long progressLong = downloadedFileSize;
                 long maximumLong = completeFileSize;
                 long result = (progressLong * 100) / maximumLong;
+                if (selectedWindow != null) {
+                    try {
+                        Taskbar.getTaskbar().setWindowProgressValue(selectedWindow, (int) result);
+                    } catch (Exception ex) {
+                        try {
+                            Taskbar.getTaskbar().setProgressValue((int) result);
+                        } catch (UnsupportedOperationException ignored) {}
+                    }
+                } else {
+                    try {
+                        Taskbar.getTaskbar().setProgressValue((int) result);
+                    } catch (UnsupportedOperationException ignored) {}
+                }
 
                 // update progress bar
                 percentText.setText((int) result + "%");
@@ -188,6 +297,35 @@ public class TimFilesUtils {
             }
             bout.close();
             in.close();
+
+            if (selectedWindow != null) {
+                try {
+                    Taskbar.getTaskbar().setWindowProgressValue(selectedWindow, 102);
+                } catch (Exception ex) {
+                    try {
+                        Taskbar.getTaskbar().setProgressValue(102);
+                    } catch (UnsupportedOperationException ignored) {}
+                }
+            } else {
+                try {
+                    Taskbar.getTaskbar().setProgressValue(102);
+                } catch (UnsupportedOperationException ignored) {}
+            }
+
+            if (selectedWindow != null) {
+                try {
+                    Taskbar.getTaskbar().requestWindowUserAttention(selectedWindow);
+                } catch (Exception ex) {
+                    try {
+                        Taskbar.getTaskbar().requestUserAttention(true, false);
+                    } catch (UnsupportedOperationException ignored) {}
+                }
+            } else {
+                try {
+                    Taskbar.getTaskbar().requestUserAttention(true, false);
+                } catch (UnsupportedOperationException ignored) {}
+            }
+
         } catch (FileNotFoundException e) {
             PopUpMessages.errorMessage("FileNotFoundException", e.getMessage());
         } catch (IOException e) {
@@ -216,6 +354,19 @@ public class TimFilesUtils {
                 long progressLong = downloadedFileSize;
                 long maximumLong = completeFileSize;
                 long result = (progressLong * 100) / maximumLong;
+                if (selectedWindow != null) {
+                    try {
+                        Taskbar.getTaskbar().setWindowProgressValue(selectedWindow, (int) result);
+                    } catch (Exception ex) {
+                        try {
+                            Taskbar.getTaskbar().setProgressValue((int) result);
+                        } catch (UnsupportedOperationException ignored) {}
+                    }
+                } else {
+                    try {
+                        Taskbar.getTaskbar().setProgressValue((int) result);
+                    } catch (UnsupportedOperationException ignored) {}
+                }
 
                 // update progress bar
                 progressBar.setMaximum((int) maximumLong);
@@ -226,6 +377,35 @@ public class TimFilesUtils {
             }
             bout.close();
             in.close();
+
+            if (selectedWindow != null) {
+                try {
+                    Taskbar.getTaskbar().setWindowProgressValue(selectedWindow, 102);
+                } catch (Exception ex) {
+                    try {
+                        Taskbar.getTaskbar().setProgressValue(102);
+                    } catch (UnsupportedOperationException ignored) {}
+                }
+            } else {
+                try {
+                    Taskbar.getTaskbar().setProgressValue(102);
+                } catch (UnsupportedOperationException ignored) {}
+            }
+
+            if (selectedWindow != null) {
+                try {
+                    Taskbar.getTaskbar().requestWindowUserAttention(selectedWindow);
+                } catch (Exception ex) {
+                    try {
+                        Taskbar.getTaskbar().requestUserAttention(true, false);
+                    } catch (UnsupportedOperationException ignored) {}
+                }
+            } else {
+                try {
+                    Taskbar.getTaskbar().requestUserAttention(true, false);
+                } catch (UnsupportedOperationException ignored) {}
+            }
+
         } catch (FileNotFoundException e) {
             PopUpMessages.errorMessage("FileNotFoundException", e.getMessage());
         } catch (IOException e) {
@@ -254,6 +434,19 @@ public class TimFilesUtils {
                 long progressLong = downloadedFileSize;
                 long maximumLong = completeFileSize;
                 long result = (progressLong * 100) / maximumLong;
+                if (selectedWindow != null) {
+                    try {
+                        Taskbar.getTaskbar().setWindowProgressValue(selectedWindow, (int) result);
+                    } catch (Exception ex) {
+                        try {
+                            Taskbar.getTaskbar().setProgressValue((int) result);
+                        } catch (UnsupportedOperationException ignored) {}
+                    }
+                } else {
+                    try {
+                        Taskbar.getTaskbar().setProgressValue((int) result);
+                    } catch (UnsupportedOperationException ignored) {}
+                }
 
                 // update progress bar
                 progressBar.setMaximum((int) maximumLong);
@@ -264,6 +457,35 @@ public class TimFilesUtils {
             }
             bout.close();
             in.close();
+
+            if (selectedWindow != null) {
+                try {
+                    Taskbar.getTaskbar().setWindowProgressValue(selectedWindow, 102);
+                } catch (Exception ex) {
+                    try {
+                        Taskbar.getTaskbar().setProgressValue(102);
+                    } catch (UnsupportedOperationException ignored) {}
+                }
+            } else {
+                try {
+                    Taskbar.getTaskbar().setProgressValue(102);
+                } catch (UnsupportedOperationException ignored) {}
+            }
+
+            if (selectedWindow != null) {
+                try {
+                    Taskbar.getTaskbar().requestWindowUserAttention(selectedWindow);
+                } catch (Exception ex) {
+                    try {
+                        Taskbar.getTaskbar().requestUserAttention(true, false);
+                    } catch (UnsupportedOperationException ignored) {}
+                }
+            } else {
+                try {
+                    Taskbar.getTaskbar().requestUserAttention(true, false);
+                } catch (UnsupportedOperationException ignored) {}
+            }
+
         } catch (FileNotFoundException e) {
             PopUpMessages.errorMessage("FileNotFoundException", e.getMessage());
         } catch (IOException e) {
@@ -292,6 +514,19 @@ public class TimFilesUtils {
                 long progressLong = downloadedFileSize;
                 long maximumLong = completeFileSize;
                 long result = (progressLong * 100) / maximumLong;
+                if (selectedWindow != null) {
+                    try {
+                        Taskbar.getTaskbar().setWindowProgressValue(selectedWindow, (int) result);
+                    } catch (Exception ex) {
+                        try {
+                            Taskbar.getTaskbar().setProgressValue((int) result);
+                        } catch (UnsupportedOperationException ignored) {}
+                    }
+                } else {
+                    try {
+                        Taskbar.getTaskbar().setProgressValue((int) result);
+                    } catch (UnsupportedOperationException ignored) {}
+                }
 
                 // update progress bar
                 percentText.setText((int) result + "%");
@@ -300,6 +535,35 @@ public class TimFilesUtils {
             }
             bout.close();
             in.close();
+
+            if (selectedWindow != null) {
+                try {
+                    Taskbar.getTaskbar().setWindowProgressValue(selectedWindow, 102);
+                } catch (Exception ex) {
+                    try {
+                        Taskbar.getTaskbar().setProgressValue(102);
+                    } catch (UnsupportedOperationException ignored) {}
+                }
+            } else {
+                try {
+                    Taskbar.getTaskbar().setProgressValue(102);
+                } catch (UnsupportedOperationException ignored) {}
+            }
+
+            if (selectedWindow != null) {
+                try {
+                    Taskbar.getTaskbar().requestWindowUserAttention(selectedWindow);
+                } catch (Exception ex) {
+                    try {
+                        Taskbar.getTaskbar().requestUserAttention(true, false);
+                    } catch (UnsupportedOperationException ignored) {}
+                }
+            } else {
+                try {
+                    Taskbar.getTaskbar().requestUserAttention(true, false);
+                } catch (UnsupportedOperationException ignored) {}
+            }
+
         } catch (FileNotFoundException e) {
             PopUpMessages.errorMessage("FileNotFoundException", e.getMessage());
         } catch (IOException e) {
@@ -328,6 +592,19 @@ public class TimFilesUtils {
                 long progressLong = downloadedFileSize;
                 long maximumLong = completeFileSize;
                 long result = (progressLong * 100) / maximumLong;
+                if (selectedWindow != null) {
+                    try {
+                        Taskbar.getTaskbar().setWindowProgressValue(selectedWindow, (int) result);
+                    } catch (Exception ex) {
+                        try {
+                            Taskbar.getTaskbar().setProgressValue((int) result);
+                        } catch (UnsupportedOperationException ignored) {}
+                    }
+                } else {
+                    try {
+                        Taskbar.getTaskbar().setProgressValue((int) result);
+                    } catch (UnsupportedOperationException ignored) {}
+                }
 
                 // update progress bar
                 progressBar.setMaximum((int) maximumLong);
@@ -338,6 +615,35 @@ public class TimFilesUtils {
             }
             bout.close();
             in.close();
+
+            if (selectedWindow != null) {
+                try {
+                    Taskbar.getTaskbar().setWindowProgressValue(selectedWindow, 102);
+                } catch (Exception ex) {
+                    try {
+                        Taskbar.getTaskbar().setProgressValue(102);
+                    } catch (UnsupportedOperationException ignored) {}
+                }
+            } else {
+                try {
+                    Taskbar.getTaskbar().setProgressValue(102);
+                } catch (UnsupportedOperationException ignored) {}
+            }
+
+            if (selectedWindow != null) {
+                try {
+                    Taskbar.getTaskbar().requestWindowUserAttention(selectedWindow);
+                } catch (Exception ex) {
+                    try {
+                        Taskbar.getTaskbar().requestUserAttention(true, false);
+                    } catch (UnsupportedOperationException ignored) {}
+                }
+            } else {
+                try {
+                    Taskbar.getTaskbar().requestUserAttention(true, false);
+                } catch (UnsupportedOperationException ignored) {}
+            }
+
         } catch (FileNotFoundException e) {
             PopUpMessages.errorMessage("FileNotFoundException", e.getMessage());
         } catch (IOException e) {
@@ -366,6 +672,19 @@ public class TimFilesUtils {
                 long progressLong = downloadedFileSize;
                 long maximumLong = completeFileSize;
                 long result = (progressLong * 100) / maximumLong;
+                if (selectedWindow != null) {
+                    try {
+                        Taskbar.getTaskbar().setWindowProgressValue(selectedWindow, (int) result);
+                    } catch (Exception ex) {
+                        try {
+                            Taskbar.getTaskbar().setProgressValue((int) result);
+                        } catch (UnsupportedOperationException ignored) {}
+                    }
+                } else {
+                    try {
+                        Taskbar.getTaskbar().setProgressValue((int) result);
+                    } catch (UnsupportedOperationException ignored) {}
+                }
 
                 // update progress bar
                 progressBar.setMaximum((int) maximumLong);
@@ -376,6 +695,35 @@ public class TimFilesUtils {
             }
             bout.close();
             in.close();
+
+            if (selectedWindow != null) {
+                try {
+                    Taskbar.getTaskbar().setWindowProgressValue(selectedWindow, 102);
+                } catch (Exception ex) {
+                    try {
+                        Taskbar.getTaskbar().setProgressValue(102);
+                    } catch (UnsupportedOperationException ignored) {}
+                }
+            } else {
+                try {
+                    Taskbar.getTaskbar().setProgressValue(102);
+                } catch (UnsupportedOperationException ignored) {}
+            }
+
+            if (selectedWindow != null) {
+                try {
+                    Taskbar.getTaskbar().requestWindowUserAttention(selectedWindow);
+                } catch (Exception ex) {
+                    try {
+                        Taskbar.getTaskbar().requestUserAttention(true, false);
+                    } catch (UnsupportedOperationException ignored) {}
+                }
+            } else {
+                try {
+                    Taskbar.getTaskbar().requestUserAttention(true, false);
+                } catch (UnsupportedOperationException ignored) {}
+            }
+
         } catch (FileNotFoundException e) {
             PopUpMessages.errorMessage("FileNotFoundException", e.getMessage());
         } catch (IOException e) {
@@ -426,6 +774,19 @@ public class TimFilesUtils {
             long progressLong = downloadedFileSize;
             long maximumLong = completeFileSize;
             long result = (progressLong * 100) / maximumLong;
+            if (selectedWindow != null) {
+                try {
+                    Taskbar.getTaskbar().setWindowProgressValue(selectedWindow, (int) result);
+                } catch (Exception ex) {
+                    try {
+                        Taskbar.getTaskbar().setProgressValue((int) result);
+                    } catch (UnsupportedOperationException ignored) {}
+                }
+            } else {
+                try {
+                    Taskbar.getTaskbar().setProgressValue((int) result);
+                } catch (UnsupportedOperationException ignored) {}
+            }
 
             // update progress bar
             percentText.setText((int) result + "%");
@@ -435,6 +796,35 @@ public class TimFilesUtils {
         }
         bout.close();
         in.close();
+
+        if (selectedWindow != null) {
+            try {
+                Taskbar.getTaskbar().setWindowProgressValue(selectedWindow, 102);
+            } catch (Exception ex) {
+                try {
+                    Taskbar.getTaskbar().setProgressValue(102);
+                } catch (UnsupportedOperationException ignored) {}
+            }
+        } else {
+            try {
+                Taskbar.getTaskbar().setProgressValue(102);
+            } catch (UnsupportedOperationException ignored) {}
+        }
+
+        if (selectedWindow != null) {
+            try {
+                Taskbar.getTaskbar().requestWindowUserAttention(selectedWindow);
+            } catch (Exception ex) {
+                try {
+                    Taskbar.getTaskbar().requestUserAttention(true, false);
+                } catch (UnsupportedOperationException ignored) {}
+            }
+        } else {
+            try {
+                Taskbar.getTaskbar().requestUserAttention(true, false);
+            } catch (UnsupportedOperationException ignored) {}
+        }
+
     }
 
     public static void downloadFromInternet(String fileUrl, File dest, JProgressBar progressBar, JTextComponent percentText, JTextComponent bytesText) throws IOException {
@@ -456,6 +846,19 @@ public class TimFilesUtils {
             long progressLong = downloadedFileSize;
             long maximumLong = completeFileSize;
             long result = (progressLong * 100) / maximumLong;
+            if (selectedWindow != null) {
+                try {
+                    Taskbar.getTaskbar().setWindowProgressValue(selectedWindow, (int) result);
+                } catch (Exception ex) {
+                    try {
+                        Taskbar.getTaskbar().setProgressValue((int) result);
+                    } catch (UnsupportedOperationException ignored) {}
+                }
+            } else {
+                try {
+                    Taskbar.getTaskbar().setProgressValue((int) result);
+                } catch (UnsupportedOperationException ignored) {}
+            }
 
             // update progress bar
             progressBar.setMaximum((int) maximumLong);
@@ -467,6 +870,35 @@ public class TimFilesUtils {
         }
         bout.close();
         in.close();
+
+        if (selectedWindow != null) {
+            try {
+                Taskbar.getTaskbar().setWindowProgressValue(selectedWindow, 102);
+            } catch (Exception ex) {
+                try {
+                    Taskbar.getTaskbar().setProgressValue(102);
+                } catch (UnsupportedOperationException ignored) {}
+            }
+        } else {
+            try {
+                Taskbar.getTaskbar().setProgressValue(102);
+            } catch (UnsupportedOperationException ignored) {}
+        }
+
+        if (selectedWindow != null) {
+            try {
+                Taskbar.getTaskbar().requestWindowUserAttention(selectedWindow);
+            } catch (Exception ex) {
+                try {
+                    Taskbar.getTaskbar().requestUserAttention(true, false);
+                } catch (UnsupportedOperationException ignored) {}
+            }
+        } else {
+            try {
+                Taskbar.getTaskbar().requestUserAttention(true, false);
+            } catch (UnsupportedOperationException ignored) {}
+        }
+
     }
 
     public static void downloadFromInternet(String fileUrl, File dest, AbstractProgressBar progressBar, JTextComponent percentText, JTextComponent bytesText) throws IOException {
@@ -489,6 +921,19 @@ public class TimFilesUtils {
             long progressLong = downloadedFileSize;
             long maximumLong = completeFileSize;
             long result = (progressLong * 100) / maximumLong;
+            if (selectedWindow != null) {
+                try {
+                    Taskbar.getTaskbar().setWindowProgressValue(selectedWindow, (int) result);
+                } catch (Exception ex) {
+                    try {
+                        Taskbar.getTaskbar().setProgressValue((int) result);
+                    } catch (UnsupportedOperationException ignored) {}
+                }
+            } else {
+                try {
+                    Taskbar.getTaskbar().setProgressValue((int) result);
+                } catch (UnsupportedOperationException ignored) {}
+            }
 
             // update progress bar
             progressBar.setMaximum((int) maximumLong);
@@ -500,6 +945,35 @@ public class TimFilesUtils {
         }
         bout.close();
         in.close();
+
+        if (selectedWindow != null) {
+            try {
+                Taskbar.getTaskbar().setWindowProgressValue(selectedWindow, 102);
+            } catch (Exception ex) {
+                try {
+                    Taskbar.getTaskbar().setProgressValue(102);
+                } catch (UnsupportedOperationException ignored) {}
+            }
+        } else {
+            try {
+                Taskbar.getTaskbar().setProgressValue(102);
+            } catch (UnsupportedOperationException ignored) {}
+        }
+
+        if (selectedWindow != null) {
+            try {
+                Taskbar.getTaskbar().requestWindowUserAttention(selectedWindow);
+            } catch (Exception ex) {
+                try {
+                    Taskbar.getTaskbar().requestUserAttention(true, false);
+                } catch (UnsupportedOperationException ignored) {}
+            }
+        } else {
+            try {
+                Taskbar.getTaskbar().requestUserAttention(true, false);
+            } catch (UnsupportedOperationException ignored) {}
+        }
+
     }
 
     public static void downloadFromInternet(String fileUrl, File dest, JLabel percentText, JTextComponent bytesText) throws IOException {
@@ -522,6 +996,19 @@ public class TimFilesUtils {
             long progressLong = downloadedFileSize;
             long maximumLong = completeFileSize;
             long result = (progressLong * 100) / maximumLong;
+            if (selectedWindow != null) {
+                try {
+                    Taskbar.getTaskbar().setWindowProgressValue(selectedWindow, (int) result);
+                } catch (Exception ex) {
+                    try {
+                        Taskbar.getTaskbar().setProgressValue((int) result);
+                    } catch (UnsupportedOperationException ignored) {}
+                }
+            } else {
+                try {
+                    Taskbar.getTaskbar().setProgressValue((int) result);
+                } catch (UnsupportedOperationException ignored) {}
+            }
 
             // update progress bar
             percentText.setText((int) result + "%");
@@ -531,6 +1018,35 @@ public class TimFilesUtils {
         }
         bout.close();
         in.close();
+
+        if (selectedWindow != null) {
+            try {
+                Taskbar.getTaskbar().setWindowProgressValue(selectedWindow, 102);
+            } catch (Exception ex) {
+                try {
+                    Taskbar.getTaskbar().setProgressValue(102);
+                } catch (UnsupportedOperationException ignored) {}
+            }
+        } else {
+            try {
+                Taskbar.getTaskbar().setProgressValue(102);
+            } catch (UnsupportedOperationException ignored) {}
+        }
+
+        if (selectedWindow != null) {
+            try {
+                Taskbar.getTaskbar().requestWindowUserAttention(selectedWindow);
+            } catch (Exception ex) {
+                try {
+                    Taskbar.getTaskbar().requestUserAttention(true, false);
+                } catch (UnsupportedOperationException ignored) {}
+            }
+        } else {
+            try {
+                Taskbar.getTaskbar().requestUserAttention(true, false);
+            } catch (UnsupportedOperationException ignored) {}
+        }
+
     }
 
     public static void downloadFromInternet(String fileUrl, File dest, JProgressBar progressBar, JLabel percentText, JTextComponent bytesText) throws IOException {
@@ -553,6 +1069,19 @@ public class TimFilesUtils {
             long progressLong = downloadedFileSize;
             long maximumLong = completeFileSize;
             long result = (progressLong * 100) / maximumLong;
+            if (selectedWindow != null) {
+                try {
+                    Taskbar.getTaskbar().setWindowProgressValue(selectedWindow, (int) result);
+                } catch (Exception ex) {
+                    try {
+                        Taskbar.getTaskbar().setProgressValue((int) result);
+                    } catch (UnsupportedOperationException ignored) {}
+                }
+            } else {
+                try {
+                    Taskbar.getTaskbar().setProgressValue((int) result);
+                } catch (UnsupportedOperationException ignored) {}
+            }
 
             // update progress bar
             progressBar.setMaximum((int) maximumLong);
@@ -564,6 +1093,35 @@ public class TimFilesUtils {
         }
         bout.close();
         in.close();
+
+        if (selectedWindow != null) {
+            try {
+                Taskbar.getTaskbar().setWindowProgressValue(selectedWindow, 102);
+            } catch (Exception ex) {
+                try {
+                    Taskbar.getTaskbar().setProgressValue(102);
+                } catch (UnsupportedOperationException ignored) {}
+            }
+        } else {
+            try {
+                Taskbar.getTaskbar().setProgressValue(102);
+            } catch (UnsupportedOperationException ignored) {}
+        }
+
+        if (selectedWindow != null) {
+            try {
+                Taskbar.getTaskbar().requestWindowUserAttention(selectedWindow);
+            } catch (Exception ex) {
+                try {
+                    Taskbar.getTaskbar().requestUserAttention(true, false);
+                } catch (UnsupportedOperationException ignored) {}
+            }
+        } else {
+            try {
+                Taskbar.getTaskbar().requestUserAttention(true, false);
+            } catch (UnsupportedOperationException ignored) {}
+        }
+
     }
 
     public static void downloadFromInternet(String fileUrl, File dest, AbstractProgressBar progressBar, JLabel percentText, JTextComponent bytesText) throws IOException {
@@ -586,6 +1144,19 @@ public class TimFilesUtils {
             long progressLong = downloadedFileSize;
             long maximumLong = completeFileSize;
             long result = (progressLong * 100) / maximumLong;
+            if (selectedWindow != null) {
+                try {
+                    Taskbar.getTaskbar().setWindowProgressValue(selectedWindow, (int) result);
+                } catch (Exception ex) {
+                    try {
+                        Taskbar.getTaskbar().setProgressValue((int) result);
+                    } catch (UnsupportedOperationException ignored) {}
+                }
+            } else {
+                try {
+                    Taskbar.getTaskbar().setProgressValue((int) result);
+                } catch (UnsupportedOperationException ignored) {}
+            }
 
             // update progress bar
             progressBar.setMaximum((int) maximumLong);
@@ -597,6 +1168,35 @@ public class TimFilesUtils {
         }
         bout.close();
         in.close();
+
+        if (selectedWindow != null) {
+            try {
+                Taskbar.getTaskbar().setWindowProgressValue(selectedWindow, 102);
+            } catch (Exception ex) {
+                try {
+                    Taskbar.getTaskbar().setProgressValue(102);
+                } catch (UnsupportedOperationException ignored) {}
+            }
+        } else {
+            try {
+                Taskbar.getTaskbar().setProgressValue(102);
+            } catch (UnsupportedOperationException ignored) {}
+        }
+
+        if (selectedWindow != null) {
+            try {
+                Taskbar.getTaskbar().requestWindowUserAttention(selectedWindow);
+            } catch (Exception ex) {
+                try {
+                    Taskbar.getTaskbar().requestUserAttention(true, false);
+                } catch (UnsupportedOperationException ignored) {}
+            }
+        } else {
+            try {
+                Taskbar.getTaskbar().requestUserAttention(true, false);
+            } catch (UnsupportedOperationException ignored) {}
+        }
+
     }
 
     public static void downloadFromInternet(String fileUrl, File dest, JTextComponent percentText, JLabel bytesText) throws IOException {
@@ -619,6 +1219,19 @@ public class TimFilesUtils {
             long progressLong = downloadedFileSize;
             long maximumLong = completeFileSize;
             long result = (progressLong * 100) / maximumLong;
+            if (selectedWindow != null) {
+                try {
+                    Taskbar.getTaskbar().setWindowProgressValue(selectedWindow, (int) result);
+                } catch (Exception ex) {
+                    try {
+                        Taskbar.getTaskbar().setProgressValue((int) result);
+                    } catch (UnsupportedOperationException ignored) {}
+                }
+            } else {
+                try {
+                    Taskbar.getTaskbar().setProgressValue((int) result);
+                } catch (UnsupportedOperationException ignored) {}
+            }
 
             // update progress bar
             percentText.setText((int) result + "%");
@@ -628,6 +1241,35 @@ public class TimFilesUtils {
         }
         bout.close();
         in.close();
+
+        if (selectedWindow != null) {
+            try {
+                Taskbar.getTaskbar().setWindowProgressValue(selectedWindow, 102);
+            } catch (Exception ex) {
+                try {
+                    Taskbar.getTaskbar().setProgressValue(102);
+                } catch (UnsupportedOperationException ignored) {}
+            }
+        } else {
+            try {
+                Taskbar.getTaskbar().setProgressValue(102);
+            } catch (UnsupportedOperationException ignored) {}
+        }
+
+        if (selectedWindow != null) {
+            try {
+                Taskbar.getTaskbar().requestWindowUserAttention(selectedWindow);
+            } catch (Exception ex) {
+                try {
+                    Taskbar.getTaskbar().requestUserAttention(true, false);
+                } catch (UnsupportedOperationException ignored) {}
+            }
+        } else {
+            try {
+                Taskbar.getTaskbar().requestUserAttention(true, false);
+            } catch (UnsupportedOperationException ignored) {}
+        }
+
     }
 
     public static void downloadFromInternet(String fileUrl, File dest, JProgressBar progressBar, JTextComponent percentText, JLabel bytesText) throws IOException {
@@ -650,6 +1292,19 @@ public class TimFilesUtils {
             long progressLong = downloadedFileSize;
             long maximumLong = completeFileSize;
             long result = (progressLong * 100) / maximumLong;
+            if (selectedWindow != null) {
+                try {
+                    Taskbar.getTaskbar().setWindowProgressValue(selectedWindow, (int) result);
+                } catch (Exception ex) {
+                    try {
+                        Taskbar.getTaskbar().setProgressValue((int) result);
+                    } catch (UnsupportedOperationException ignored) {}
+                }
+            } else {
+                try {
+                    Taskbar.getTaskbar().setProgressValue((int) result);
+                } catch (UnsupportedOperationException ignored) {}
+            }
 
             // update progress bar
             progressBar.setMaximum((int) maximumLong);
@@ -661,6 +1316,35 @@ public class TimFilesUtils {
         }
         bout.close();
         in.close();
+
+        if (selectedWindow != null) {
+            try {
+                Taskbar.getTaskbar().setWindowProgressValue(selectedWindow, 102);
+            } catch (Exception ex) {
+                try {
+                    Taskbar.getTaskbar().setProgressValue(102);
+                } catch (UnsupportedOperationException ignored) {}
+            }
+        } else {
+            try {
+                Taskbar.getTaskbar().setProgressValue(102);
+            } catch (UnsupportedOperationException ignored) {}
+        }
+
+        if (selectedWindow != null) {
+            try {
+                Taskbar.getTaskbar().requestWindowUserAttention(selectedWindow);
+            } catch (Exception ex) {
+                try {
+                    Taskbar.getTaskbar().requestUserAttention(true, false);
+                } catch (UnsupportedOperationException ignored) {}
+            }
+        } else {
+            try {
+                Taskbar.getTaskbar().requestUserAttention(true, false);
+            } catch (UnsupportedOperationException ignored) {}
+        }
+
     }
 
     public static void downloadFromInternet(String fileUrl, File dest, AbstractProgressBar progressBar, JTextComponent percentText, JLabel bytesText) throws IOException {
@@ -683,6 +1367,19 @@ public class TimFilesUtils {
             long progressLong = downloadedFileSize;
             long maximumLong = completeFileSize;
             long result = (progressLong * 100) / maximumLong;
+            if (selectedWindow != null) {
+                try {
+                    Taskbar.getTaskbar().setWindowProgressValue(selectedWindow, (int) result);
+                } catch (Exception ex) {
+                    try {
+                        Taskbar.getTaskbar().setProgressValue((int) result);
+                    } catch (UnsupportedOperationException ignored) {}
+                }
+            } else {
+                try {
+                    Taskbar.getTaskbar().setProgressValue((int) result);
+                } catch (UnsupportedOperationException ignored) {}
+            }
 
             // update progress bar
             progressBar.setMaximum((int) maximumLong);
@@ -694,6 +1391,35 @@ public class TimFilesUtils {
         }
         bout.close();
         in.close();
+
+        if (selectedWindow != null) {
+            try {
+                Taskbar.getTaskbar().setWindowProgressValue(selectedWindow, 102);
+            } catch (Exception ex) {
+                try {
+                    Taskbar.getTaskbar().setProgressValue(102);
+                } catch (UnsupportedOperationException ignored) {}
+            }
+        } else {
+            try {
+                Taskbar.getTaskbar().setProgressValue(102);
+            } catch (UnsupportedOperationException ignored) {}
+        }
+
+        if (selectedWindow != null) {
+            try {
+                Taskbar.getTaskbar().requestWindowUserAttention(selectedWindow);
+            } catch (Exception ex) {
+                try {
+                    Taskbar.getTaskbar().requestUserAttention(true, false);
+                } catch (UnsupportedOperationException ignored) {}
+            }
+        } else {
+            try {
+                Taskbar.getTaskbar().requestUserAttention(true, false);
+            } catch (UnsupportedOperationException ignored) {}
+        }
+
     }
 
     public static void downloadFromInternet(String fileUrl, File dest, JLabel percentText, JLabel bytesText) throws IOException {
@@ -716,6 +1442,19 @@ public class TimFilesUtils {
             long progressLong = downloadedFileSize;
             long maximumLong = completeFileSize;
             long result = (progressLong * 100) / maximumLong;
+            if (selectedWindow != null) {
+                try {
+                    Taskbar.getTaskbar().setWindowProgressValue(selectedWindow, (int) result);
+                } catch (Exception ex) {
+                    try {
+                        Taskbar.getTaskbar().setProgressValue((int) result);
+                    } catch (UnsupportedOperationException ignored) {}
+                }
+            } else {
+                try {
+                    Taskbar.getTaskbar().setProgressValue((int) result);
+                } catch (UnsupportedOperationException ignored) {}
+            }
 
             // update progress bar
             percentText.setText((int) result + "%");
@@ -725,6 +1464,35 @@ public class TimFilesUtils {
         }
         bout.close();
         in.close();
+
+        if (selectedWindow != null) {
+            try {
+                Taskbar.getTaskbar().setWindowProgressValue(selectedWindow, 102);
+            } catch (Exception ex) {
+                try {
+                    Taskbar.getTaskbar().setProgressValue(102);
+                } catch (UnsupportedOperationException ignored) {}
+            }
+        } else {
+            try {
+                Taskbar.getTaskbar().setProgressValue(102);
+            } catch (UnsupportedOperationException ignored) {}
+        }
+
+        if (selectedWindow != null) {
+            try {
+                Taskbar.getTaskbar().requestWindowUserAttention(selectedWindow);
+            } catch (Exception ex) {
+                try {
+                    Taskbar.getTaskbar().requestUserAttention(true, false);
+                } catch (UnsupportedOperationException ignored) {}
+            }
+        } else {
+            try {
+                Taskbar.getTaskbar().requestUserAttention(true, false);
+            } catch (UnsupportedOperationException ignored) {}
+        }
+
     }
 
     public static void downloadFromInternet(String fileUrl, File dest, JProgressBar progressBar, JLabel percentText, JLabel bytesText) throws IOException {
@@ -747,6 +1515,19 @@ public class TimFilesUtils {
             long progressLong = downloadedFileSize;
             long maximumLong = completeFileSize;
             long result = (progressLong * 100) / maximumLong;
+            if (selectedWindow != null) {
+                try {
+                    Taskbar.getTaskbar().setWindowProgressValue(selectedWindow, (int) result);
+                } catch (Exception ex) {
+                    try {
+                        Taskbar.getTaskbar().setProgressValue((int) result);
+                    } catch (UnsupportedOperationException ignored) {}
+                }
+            } else {
+                try {
+                    Taskbar.getTaskbar().setProgressValue((int) result);
+                } catch (UnsupportedOperationException ignored) {}
+            }
 
             // update progress bar
             progressBar.setMaximum((int) maximumLong);
@@ -758,6 +1539,35 @@ public class TimFilesUtils {
         }
         bout.close();
         in.close();
+
+        if (selectedWindow != null) {
+            try {
+                Taskbar.getTaskbar().setWindowProgressValue(selectedWindow, 102);
+            } catch (Exception ex) {
+                try {
+                    Taskbar.getTaskbar().setProgressValue(102);
+                } catch (UnsupportedOperationException ignored) {}
+            }
+        } else {
+            try {
+                Taskbar.getTaskbar().setProgressValue(102);
+            } catch (UnsupportedOperationException ignored) {}
+        }
+
+        if (selectedWindow != null) {
+            try {
+                Taskbar.getTaskbar().requestWindowUserAttention(selectedWindow);
+            } catch (Exception ex) {
+                try {
+                    Taskbar.getTaskbar().requestUserAttention(true, false);
+                } catch (UnsupportedOperationException ignored) {}
+            }
+        } else {
+            try {
+                Taskbar.getTaskbar().requestUserAttention(true, false);
+            } catch (UnsupportedOperationException ignored) {}
+        }
+
     }
 
     public static void downloadFromInternet(String fileUrl, File dest, AbstractProgressBar progressBar, JLabel percentText, JLabel bytesText) throws IOException {
@@ -780,6 +1590,19 @@ public class TimFilesUtils {
             long progressLong = downloadedFileSize;
             long maximumLong = completeFileSize;
             long result = (progressLong * 100) / maximumLong;
+            if (selectedWindow != null) {
+                try {
+                    Taskbar.getTaskbar().setWindowProgressValue(selectedWindow, (int) result);
+                } catch (Exception ex) {
+                    try {
+                        Taskbar.getTaskbar().setProgressValue((int) result);
+                    } catch (UnsupportedOperationException ignored) {}
+                }
+            } else {
+                try {
+                    Taskbar.getTaskbar().setProgressValue((int) result);
+                } catch (UnsupportedOperationException ignored) {}
+            }
 
             // update progress bar
             progressBar.setMaximum((int) maximumLong);
@@ -791,6 +1614,35 @@ public class TimFilesUtils {
         }
         bout.close();
         in.close();
+
+        if (selectedWindow != null) {
+            try {
+                Taskbar.getTaskbar().setWindowProgressValue(selectedWindow, 102);
+            } catch (Exception ex) {
+                try {
+                    Taskbar.getTaskbar().setProgressValue(102);
+                } catch (UnsupportedOperationException ignored) {}
+            }
+        } else {
+            try {
+                Taskbar.getTaskbar().setProgressValue(102);
+            } catch (UnsupportedOperationException ignored) {}
+        }
+
+        if (selectedWindow != null) {
+            try {
+                Taskbar.getTaskbar().requestWindowUserAttention(selectedWindow);
+            } catch (Exception ex) {
+                try {
+                    Taskbar.getTaskbar().requestUserAttention(true, false);
+                } catch (UnsupportedOperationException ignored) {}
+            }
+        } else {
+            try {
+                Taskbar.getTaskbar().requestUserAttention(true, false);
+            } catch (UnsupportedOperationException ignored) {}
+        }
+
     }
 
     public static void downloadFromInternetTest(String fileUrl, File dest) throws IOException {
@@ -813,6 +1665,19 @@ public class TimFilesUtils {
             long progressLong = downloadedFileSize;
             long maximumLong = completeFileSize;
             long result = (progressLong * 100) / maximumLong;
+            if (selectedWindow != null) {
+                try {
+                    Taskbar.getTaskbar().setWindowProgressValue(selectedWindow, (int) result);
+                } catch (Exception ex) {
+                    try {
+                        Taskbar.getTaskbar().setProgressValue((int) result);
+                    } catch (UnsupportedOperationException ignored) {}
+                }
+            } else {
+                try {
+                    Taskbar.getTaskbar().setProgressValue((int) result);
+                } catch (UnsupportedOperationException ignored) {}
+            }
 
             // update progress bar
             System.out.println("Percent: " + (int) result + "%");
@@ -822,6 +1687,35 @@ public class TimFilesUtils {
         }
         bout.close();
         in.close();
+
+        if (selectedWindow != null) {
+            try {
+                Taskbar.getTaskbar().setWindowProgressValue(selectedWindow, 102);
+            } catch (Exception ex) {
+                try {
+                    Taskbar.getTaskbar().setProgressValue(102);
+                } catch (UnsupportedOperationException ignored) {}
+            }
+        } else {
+            try {
+                Taskbar.getTaskbar().setProgressValue(102);
+            } catch (UnsupportedOperationException ignored) {}
+        }
+
+        if (selectedWindow != null) {
+            try {
+                Taskbar.getTaskbar().requestWindowUserAttention(selectedWindow);
+            } catch (Exception ex) {
+                try {
+                    Taskbar.getTaskbar().requestUserAttention(true, false);
+                } catch (UnsupportedOperationException ignored) {}
+            }
+        } else {
+            try {
+                Taskbar.getTaskbar().requestUserAttention(true, false);
+            } catch (UnsupportedOperationException ignored) {}
+        }
+
     }
 
 
