@@ -28,7 +28,7 @@ public class TimFilesUtils {
         Class taskbar = Class.forName("java.awt.Taskbar");
         Method getTaskbar = taskbar.getDeclaredMethod("getTaskbar");
         Object instance = getTaskbar.invoke(taskbar);
-        Method setWindowProgressValue = instance.getClass().getDeclaredMethod("setWindowProgressValue", Window.class, Integer.class);
+        Method setWindowProgressValue = instance.getClass().getDeclaredMethod("setWindowProgressValue", Window.class, int.class);
         setWindowProgressValue.invoke(instance, window, value);
     }
 
@@ -37,7 +37,7 @@ public class TimFilesUtils {
         Class taskbar = Class.forName("java.awt.Taskbar");
         Method getTaskbar = taskbar.getDeclaredMethod("getTaskbar");
         Object instance = getTaskbar.invoke(taskbar);
-        Method setWindowProgressValue = instance.getClass().getDeclaredMethod("setProgressValue", Integer.class);
+        Method setWindowProgressValue = instance.getClass().getDeclaredMethod("setProgressValue", int.class);
         setWindowProgressValue.invoke(instance, value);
     }
 
@@ -55,7 +55,7 @@ public class TimFilesUtils {
         Class taskbar = Class.forName("java.awt.Taskbar");
         Method getTaskbar = taskbar.getDeclaredMethod("getTaskbar");
         Object instance = getTaskbar.invoke(taskbar);
-        Method setWindowProgressValue = instance.getClass().getDeclaredMethod("requestUserAttention", Boolean.class, Boolean.class);
+        Method setWindowProgressValue = instance.getClass().getDeclaredMethod("requestUserAttention", boolean.class, boolean.class);
         setWindowProgressValue.invoke(instance, enabled, critical);
     }
 
