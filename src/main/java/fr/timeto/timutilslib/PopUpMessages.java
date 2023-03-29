@@ -6,6 +6,7 @@ import fr.theshark34.swinger.event.SwingerEventListener;
 import fr.theshark34.swinger.textured.STexturedButton;
 
 import javax.swing.*;
+import javax.swing.text.*;
 
 import java.awt.*;
 import java.awt.event.WindowAdapter;
@@ -14,14 +15,9 @@ import java.awt.event.WindowListener;
 import java.awt.image.BufferedImage;
 import java.util.Objects;
 
-import static fr.theshark34.swinger.Swinger.getResourceIgnorePath;
-import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
-
 public class PopUpMessages extends JPanel implements SwingerEventListener {
     private static final JFrame frame = new JFrame();
     private static JPanel panel = new JPanel();
-
-    private final Image background = getResourceIgnorePath("/PopUpMessages/background.png");
 
     public static int ERROR_MESSAGE = 0;
     public static int NORMAL_MESSAGE = 1;
@@ -37,7 +33,6 @@ public class PopUpMessages extends JPanel implements SwingerEventListener {
     private static Thread whenOk = new Thread();
 
     private static JFrame initFrame(String title, String msg, int messageType) {
-        CustomFonts.initFonts();
         Thread t = new Thread(() -> {
             BufferedImage icon;
             if (messageType == ERROR_MESSAGE) {
@@ -96,61 +91,53 @@ public class PopUpMessages extends JPanel implements SwingerEventListener {
         image.setIcon(icon);
         this.add(image);
 
-        String message1;
-        String message2;
-        String message3;
-        try {
-            message1 = message.substring(0, 21);
-            try {
-                message2 = message.substring(21, 45);
-                try {
-                    message3 = message.substring(45);
-                } catch (Exception e) {
-                    message3 = "";
-                }
-            } catch (Exception e) {
-                message2 = message.substring(21);
-                message3 = "";
-            }
-        } catch (Exception e) {
-            message1 = message;
-            message2 = "";
-            message3 = "";
-        }
-
-
-        JTextArea messageArea = new JTextArea();
-        if (Objects.equals(message3, "")) {
-            if (Objects.equals(message2, "")){
-                messageArea.setBounds(125, 65, 180, 60);
-            } else {
-                messageArea.setBounds(125, 57, 180, 60);
-            }
-        } else {
-            messageArea.setBounds(125, 48, 180, 60);
-        }
+        JTextPane messageArea = new JTextPane();
         messageArea.setForeground(Color.WHITE);
-        messageArea.setFont(CustomFonts.kollektifFont.deriveFont(16f));
+        messageArea.setFont(CustomFonts.robotoBoldFont.deriveFont(16f));
         messageArea.setCaretColor(Color.RED);
         messageArea.setSelectionColor(new Color(255, 20, 20, 200));
         messageArea.setOpaque(false);
         messageArea.setBorder(null);
         messageArea.setEditable(false);
+
+        messageArea.setEditorKit(new MyEditorKit());
+        SimpleAttributeSet attrs = new SimpleAttributeSet();
+    /*    StyleConstants.setAlignment(attrs, StyleConstants.ALIGN_CENTER);*/
+        StyledDocument doc = (StyledDocument) messageArea.getDocument();
+        try {
+            doc.insertString(0, "111\n2222222\n3333", attrs);
+        } catch (BadLocationException ignored) {}
+        doc.setParagraphAttributes(0, doc.getLength() - 1, attrs, false);
+
         messageArea.setAlignmentX(SwingConstants.LEFT);
-        messageArea.setAlignmentY(SwingConstants.CENTER);
-        messageArea.setText(message1 + System.lineSeparator() + message2 + System.lineSeparator() + message3);
-        this.add(messageArea);
+
+        messageArea.setText(message);
+
+        JScrollPane scrollPane = new JScrollPane(messageArea);
+        scrollPane.setBounds(125, 27, 190, 95);
+        scrollPane.setOpaque(false);
+
+        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+        scrollPane.getVerticalScrollBar().setUI(new CustomScrollBarUI());
+        scrollPane.getHorizontalScrollBar().setUI(new CustomScrollBarUI());
+        scrollPane.getVerticalScrollBar().setUnitIncrement(14);
+
+        scrollPane.getViewport().setOpaque(false);
+        scrollPane.setBorder(null);
+
+        this.add(scrollPane);
 
         if (Objects.equals(messageType, YES_NO_QUESTION)) {
-            yesButton.setBounds(112, 131);
+            yesButton.setBounds(112, 138);
             yesButton.addEventListener(this);
             this.add(yesButton);
 
-            noButton.setBounds(185, 131);
+            noButton.setBounds(185, 138);
             noButton.addEventListener(this);
             this.add(noButton);
         } else {
-            okButton.setBounds(148, 131);
+            okButton.setBounds(148, 138);
             okButton.addEventListener(this);
             this.add(okButton);
         }
@@ -194,7 +181,10 @@ public class PopUpMessages extends JPanel implements SwingerEventListener {
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        g.drawImage(background, 0, 0, this.getWidth(), this.getHeight(), this);
+        Graphics2D g2d = (Graphics2D) g;
+
+        g2d.setColor(new Color(18, 18, 18));
+        g2d.fillRect(0, 0, 350, 225);
 
     }
 
@@ -214,6 +204,63 @@ public class PopUpMessages extends JPanel implements SwingerEventListener {
             ifNoThread.start();
             ifNoThread = null;
             frame.dispose();
+        }
+    }
+
+    class MyEditorKit extends StyledEditorKit {
+
+        public ViewFactory getViewFactory() {
+            return new StyledViewFactory();
+        }
+
+        class StyledViewFactory implements ViewFactory {
+
+            public View create(Element elem) {
+                String kind = elem.getName();
+                if (kind != null) {
+                    if (kind.equals(AbstractDocument.ContentElementName)) {
+
+                        return new LabelView(elem);
+                    } else if (kind.equals(AbstractDocument.ParagraphElementName)) {
+                        return new ParagraphView(elem);
+                    } else if (kind.equals(AbstractDocument.SectionElementName)) {
+
+                        return new CenteredBoxView(elem, View.Y_AXIS);
+                    } else if (kind.equals(StyleConstants.ComponentElementName)) {
+                        return new ComponentView(elem);
+                    } else if (kind.equals(StyleConstants.IconElementName)) {
+
+                        return new IconView(elem);
+                    }
+                }
+
+                return new LabelView(elem);
+            }
+
+        }
+    }
+
+    class CenteredBoxView extends BoxView {
+        public CenteredBoxView(Element elem, int axis) {
+
+            super(elem, axis);
+        }
+
+        protected void layoutMajorAxis(int targetSpan, int axis, int[] offsets,
+                                       int[] spans) {
+
+            super.layoutMajorAxis(targetSpan, axis, offsets, spans);
+            int textBlockHeight = 0;
+            int offset = 0;
+
+            for (int i = 0; i < spans.length; i++) {
+                textBlockHeight += spans[i];
+            }
+            offset = (targetSpan - textBlockHeight) / 2;
+            for (int i = 0; i < offsets.length; i++) {
+                offsets[i] += offset;
+            }
+
         }
     }
 }

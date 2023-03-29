@@ -20,7 +20,7 @@ public class CustomFonts {
 
     }
 
-    private static Font CustomFont(String path) {
+    public static Font customFont(String path) {
         Font customFont = loadFont(path, 24f);
         GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
         ge.registerFont(customFont);
@@ -38,23 +38,22 @@ public class CustomFonts {
         return null;
     }
 
-    public static Font kollektifFont;
-    public static Font kollektifBoldFont;
-    public static Font kollektifBoldItalicFont;
-    public static Font kollektifItalicFont;
-    public static Font minecraftiaFont;
-    private static final String FONT_PATH_KOLLEKTIF = "fonts/Kollektif.ttf";
-    private static final String FONT_PATH_KOLLEKTIFBOLD = "fonts/Kollektif-Bold.ttf";
-    private static final String FONT_PATH_KOLLEKTIFBOLDITALIC = "fonts/Kollektif-BoldItalic.ttf";
-    private static final String FONT_PATH_KOLLEKTIFITALIC = "fonts/Kollektif-Italic.ttf";
-    private static final String FONT_PATH_MINECRAFTIA = "fonts/Minecraftia-Regular.ttf";
+    public static Font kollektifFont = customFont("fonts/Kollektif.ttf");
+    public static Font kollektifBoldFont = customFont("fonts/Kollektif-Bold.ttf");
+    public static Font kollektifBoldItalicFont = customFont("fonts/Kollektif-BoldItalic.ttf");
+    public static Font kollektifItalicFont = customFont("fonts/Kollektif-Italic.ttf");
+    public static Font minecraftiaFont = customFont("fonts/Minecraftia-Regular.ttf");
 
-    public static void initFonts() {
-        kollektifFont = CustomFont(FONT_PATH_KOLLEKTIF);
-        kollektifBoldFont = CustomFont(FONT_PATH_KOLLEKTIFBOLD);
-        kollektifBoldItalicFont = CustomFont(FONT_PATH_KOLLEKTIFBOLDITALIC);
-        kollektifItalicFont = CustomFont(FONT_PATH_KOLLEKTIFITALIC);
-        minecraftiaFont = CustomFont(FONT_PATH_MINECRAFTIA);
-
-    }
+    public static Font robotoThinFont = customFont("fonts/Roboto-Thin.ttf");
+    public static Font robotoThinItalicFont = customFont("fonts/Roboto-ThinItalic.ttf");
+    public static Font robotoRegularFont = customFont("fonts/Roboto-Regular.ttf");
+    public static Font robotoItalicFont = customFont("fonts/Roboto-Italic.ttf");
+    public static Font robotoLightFont = customFont("fonts/Roboto-Light.ttf");
+    public static Font robotoLightItalicFont = customFont("fonts/Roboto-LightItalic.ttf");
+    public static Font robotoMediumFont = customFont("fonts/Roboto-Medium.ttf");
+    public static Font robotoMediumItalicFont = customFont("fonts/Roboto-MediumItalic.ttf");
+    public static Font robotoBoldFont = customFont("fonts/Roboto-Bold.ttf");
+    public static Font robotoBoldItalicFont = customFont("fonts/Roboto-BoldItalic.ttf");
+    public static Font robotoBlackFont = customFont("fonts/Roboto-Black.ttf");
+    public static Font robotoBlackItalicFont = customFont("fonts/Roboto-BlackItalic.ttf");
 }

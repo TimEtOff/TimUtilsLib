@@ -37,8 +37,8 @@ public class TimFilesUtils {
         Class taskbar = Class.forName("java.awt.Taskbar");
         Method getTaskbar = taskbar.getDeclaredMethod("getTaskbar");
         Object instance = getTaskbar.invoke(taskbar);
-        Method setWindowProgressValue = instance.getClass().getDeclaredMethod("setProgressValue", int.class);
-        setWindowProgressValue.invoke(instance, value);
+        Method setProgressValue = instance.getClass().getDeclaredMethod("setProgressValue", int.class);
+        setProgressValue.invoke(instance, value);
     }
 
     public static void setTaskbarRequestWindowUserAttention(Window window) throws ClassNotFoundException, NoSuchMethodException, IllegalAccessException, InvocationTargetException {
@@ -46,8 +46,8 @@ public class TimFilesUtils {
         Class taskbar = Class.forName("java.awt.Taskbar");
         Method getTaskbar = taskbar.getDeclaredMethod("getTaskbar");
         Object instance = getTaskbar.invoke(taskbar);
-        Method setWindowProgressValue = instance.getClass().getDeclaredMethod("requestWindowUserAttention", Window.class);
-        setWindowProgressValue.invoke(instance, window);
+        Method requestWindowUserAttention = instance.getClass().getDeclaredMethod("requestWindowUserAttention", Window.class);
+        requestWindowUserAttention.invoke(instance, window);
     }
 
     public static void setTaskbarRequestUserAttention(boolean enabled, boolean critical) throws ClassNotFoundException, NoSuchMethodException, IllegalAccessException, InvocationTargetException {
@@ -55,8 +55,8 @@ public class TimFilesUtils {
         Class taskbar = Class.forName("java.awt.Taskbar");
         Method getTaskbar = taskbar.getDeclaredMethod("getTaskbar");
         Object instance = getTaskbar.invoke(taskbar);
-        Method setWindowProgressValue = instance.getClass().getDeclaredMethod("requestUserAttention", boolean.class, boolean.class);
-        setWindowProgressValue.invoke(instance, enabled, critical);
+        Method requestUserAttention = instance.getClass().getDeclaredMethod("requestUserAttention", boolean.class, boolean.class);
+        requestUserAttention.invoke(instance, enabled, critical);
     }
 
     public static void downloadFromInternet(String fileUrl, File dest) throws Exception {
