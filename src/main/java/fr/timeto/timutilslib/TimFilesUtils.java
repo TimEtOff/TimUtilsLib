@@ -87,12 +87,12 @@ public class TimFilesUtils {
                     } catch (Exception ex) {
                         try {
                             setTaskbarProgressValue((int) result);
-                        } catch (UnsupportedOperationException ignored) {}
+                        } catch (Exception ignored) {}
                     }
                 } else {
                     try {
                         setTaskbarProgressValue((int) result);
-                    } catch (UnsupportedOperationException ignored) {}
+                    } catch (Exception ignored) {}
                 }
 
                 bout.write(data, 0, x);
@@ -106,12 +106,12 @@ public class TimFilesUtils {
                 } catch (Exception ex) {
                     try {
                         setTaskbarProgressValue(102);
-                    } catch (UnsupportedOperationException ignored) {}
+                    } catch (Exception ignored) {}
                 }
             } else {
                 try {
                     setTaskbarProgressValue(102);
-                } catch (UnsupportedOperationException ignored) {}
+                } catch (Exception ignored) {}
             }
 
             if (selectedWindow != null) {
@@ -120,12 +120,12 @@ public class TimFilesUtils {
                 } catch (Exception ex) {
                     try {
                         setTaskbarRequestUserAttention(true, false);
-                    } catch (UnsupportedOperationException ignored) {}
+                    } catch (Exception ignored) {}
                 }
             } else {
                 try {
                     setTaskbarRequestUserAttention(true, false);
-                } catch (UnsupportedOperationException ignored) {}
+                } catch (Exception ignored) {}
             }
 
         } catch (FileNotFoundException e) {
@@ -162,12 +162,12 @@ public class TimFilesUtils {
                     } catch (Exception ex) {
                         try {
                             setTaskbarProgressValue((int) result);
-                        } catch (UnsupportedOperationException ignored) {}
+                        } catch (Exception ignored) {}
                     }
                 } else {
                     try {
                         setTaskbarProgressValue((int) result);
-                    } catch (UnsupportedOperationException ignored) {}
+                    } catch (Exception ignored) {}
                 }
 
                 // update progress bar
@@ -185,12 +185,12 @@ public class TimFilesUtils {
                 } catch (Exception ex) {
                     try {
                         setTaskbarProgressValue(102);
-                    } catch (UnsupportedOperationException ignored) {}
+                    } catch (Exception ignored) {}
                 }
             } else {
                 try {
                     setTaskbarProgressValue(102);
-                } catch (UnsupportedOperationException ignored) {}
+                } catch (Exception ignored) {}
             }
 
             if (selectedWindow != null) {
@@ -199,12 +199,12 @@ public class TimFilesUtils {
                 } catch (Exception ex) {
                     try {
                         setTaskbarRequestUserAttention(true, false);
-                    } catch (UnsupportedOperationException ignored) {}
+                    } catch (Exception ignored) {}
                 }
             } else {
                 try {
                     setTaskbarRequestUserAttention(true, false);
-                } catch (UnsupportedOperationException ignored) {}
+                } catch (Exception ignored) {}
             }
 
         } catch (FileNotFoundException e) {
@@ -241,12 +241,12 @@ public class TimFilesUtils {
                     } catch (Exception ex) {
                         try {
                             setTaskbarProgressValue((int) result);
-                        } catch (UnsupportedOperationException ignored) {}
+                        } catch (Exception ignored) {}
                     }
                 } else {
                     try {
                         setTaskbarProgressValue((int) result);
-                    } catch (UnsupportedOperationException ignored) {}
+                    } catch (Exception ignored) {}
                 }
 
                 // update progress bar
@@ -264,12 +264,12 @@ public class TimFilesUtils {
                 } catch (Exception ex) {
                     try {
                         setTaskbarProgressValue(102);
-                    } catch (UnsupportedOperationException ignored) {}
+                    } catch (Exception ignored) {}
                 }
             } else {
                 try {
                     setTaskbarProgressValue(102);
-                } catch (UnsupportedOperationException ignored) {}
+                } catch (Exception ignored) {}
             }
 
             if (selectedWindow != null) {
@@ -278,12 +278,12 @@ public class TimFilesUtils {
                 } catch (Exception ex) {
                     try {
                         setTaskbarRequestUserAttention(true, false);
-                    } catch (UnsupportedOperationException ignored) {}
+                    } catch (Exception ignored) {}
                 }
             } else {
                 try {
                     setTaskbarRequestUserAttention(true, false);
-                } catch (UnsupportedOperationException ignored) {}
+                } catch (Exception ignored) {}
             }
 
         } catch (FileNotFoundException e) {
@@ -320,12 +320,12 @@ public class TimFilesUtils {
                     } catch (Exception ex) {
                         try {
                             setTaskbarProgressValue((int) result);
-                        } catch (UnsupportedOperationException ignored) {}
+                        } catch (Exception ignored) {}
                     }
                 } else {
                     try {
                         setTaskbarProgressValue((int) result);
-                    } catch (UnsupportedOperationException ignored) {}
+                    } catch (Exception ignored) {}
                 }
 
                 // update progress bar
@@ -342,12 +342,12 @@ public class TimFilesUtils {
                 } catch (Exception ex) {
                     try {
                         setTaskbarProgressValue(102);
-                    } catch (UnsupportedOperationException ignored) {}
+                    } catch (Exception ignored) {}
                 }
             } else {
                 try {
                     setTaskbarProgressValue(102);
-                } catch (UnsupportedOperationException ignored) {}
+                } catch (Exception ignored) {}
             }
 
             if (selectedWindow != null) {
@@ -356,12 +356,12 @@ public class TimFilesUtils {
                 } catch (Exception ex) {
                     try {
                         setTaskbarRequestUserAttention(true, false);
-                    } catch (UnsupportedOperationException ignored) {}
+                    } catch (Exception ignored) {}
                 }
             } else {
                 try {
                     setTaskbarRequestUserAttention(true, false);
-                } catch (UnsupportedOperationException ignored) {}
+                } catch (Exception ignored) {}
             }
 
         } catch (FileNotFoundException e) {
@@ -398,12 +398,12 @@ public class TimFilesUtils {
                     } catch (Exception ex) {
                         try {
                             setTaskbarProgressValue((int) result);
-                        } catch (UnsupportedOperationException ignored) {}
+                        } catch (Exception ignored) {}
                     }
                 } else {
                     try {
                         setTaskbarProgressValue((int) result);
-                    } catch (UnsupportedOperationException ignored) {}
+                    } catch (Exception ignored) {}
                 }
 
                 // update progress bar
@@ -422,12 +422,12 @@ public class TimFilesUtils {
                 } catch (Exception ex) {
                     try {
                         setTaskbarProgressValue(102);
-                    } catch (UnsupportedOperationException ignored) {}
+                    } catch (Exception ignored) {}
                 }
             } else {
                 try {
                     setTaskbarProgressValue(102);
-                } catch (UnsupportedOperationException ignored) {}
+                } catch (Exception ignored) {}
             }
 
             if (selectedWindow != null) {
@@ -436,12 +436,12 @@ public class TimFilesUtils {
                 } catch (Exception ex) {
                     try {
                         setTaskbarRequestUserAttention(true, false);
-                    } catch (UnsupportedOperationException ignored) {}
+                    } catch (Exception ignored) {}
                 }
             } else {
                 try {
                     setTaskbarRequestUserAttention(true, false);
-                } catch (UnsupportedOperationException ignored) {}
+                } catch (Exception ignored) {}
             }
 
         } catch (FileNotFoundException e) {
@@ -478,12 +478,12 @@ public class TimFilesUtils {
                     } catch (Exception ex) {
                         try {
                             setTaskbarProgressValue((int) result);
-                        } catch (UnsupportedOperationException ignored) {}
+                        } catch (Exception ignored) {}
                     }
                 } else {
                     try {
                         setTaskbarProgressValue((int) result);
-                    } catch (UnsupportedOperationException ignored) {}
+                    } catch (Exception ignored) {}
                 }
 
                 // update progress bar
@@ -502,12 +502,12 @@ public class TimFilesUtils {
                 } catch (Exception ex) {
                     try {
                         setTaskbarProgressValue(102);
-                    } catch (UnsupportedOperationException ignored) {}
+                    } catch (Exception ignored) {}
                 }
             } else {
                 try {
                     setTaskbarProgressValue(102);
-                } catch (UnsupportedOperationException ignored) {}
+                } catch (Exception ignored) {}
             }
 
             if (selectedWindow != null) {
@@ -516,12 +516,12 @@ public class TimFilesUtils {
                 } catch (Exception ex) {
                     try {
                         setTaskbarRequestUserAttention(true, false);
-                    } catch (UnsupportedOperationException ignored) {}
+                    } catch (Exception ignored) {}
                 }
             } else {
                 try {
                     setTaskbarRequestUserAttention(true, false);
-                } catch (UnsupportedOperationException ignored) {}
+                } catch (Exception ignored) {}
             }
 
         } catch (FileNotFoundException e) {
@@ -558,12 +558,12 @@ public class TimFilesUtils {
                     } catch (Exception ex) {
                         try {
                             setTaskbarProgressValue((int) result);
-                        } catch (UnsupportedOperationException ignored) {}
+                        } catch (Exception ignored) {}
                     }
                 } else {
                     try {
                         setTaskbarProgressValue((int) result);
-                    } catch (UnsupportedOperationException ignored) {}
+                    } catch (Exception ignored) {}
                 }
 
                 // update progress bar
@@ -580,12 +580,12 @@ public class TimFilesUtils {
                 } catch (Exception ex) {
                     try {
                         setTaskbarProgressValue(102);
-                    } catch (UnsupportedOperationException ignored) {}
+                    } catch (Exception ignored) {}
                 }
             } else {
                 try {
                     setTaskbarProgressValue(102);
-                } catch (UnsupportedOperationException ignored) {}
+                } catch (Exception ignored) {}
             }
 
             if (selectedWindow != null) {
@@ -594,12 +594,12 @@ public class TimFilesUtils {
                 } catch (Exception ex) {
                     try {
                         setTaskbarRequestUserAttention(true, false);
-                    } catch (UnsupportedOperationException ignored) {}
+                    } catch (Exception ignored) {}
                 }
             } else {
                 try {
                     setTaskbarRequestUserAttention(true, false);
-                } catch (UnsupportedOperationException ignored) {}
+                } catch (Exception ignored) {}
             }
 
         } catch (FileNotFoundException e) {
@@ -636,12 +636,12 @@ public class TimFilesUtils {
                     } catch (Exception ex) {
                         try {
                             setTaskbarProgressValue((int) result);
-                        } catch (UnsupportedOperationException ignored) {}
+                        } catch (Exception ignored) {}
                     }
                 } else {
                     try {
                         setTaskbarProgressValue((int) result);
-                    } catch (UnsupportedOperationException ignored) {}
+                    } catch (Exception ignored) {}
                 }
 
                 // update progress bar
@@ -660,12 +660,12 @@ public class TimFilesUtils {
                 } catch (Exception ex) {
                     try {
                         setTaskbarProgressValue(102);
-                    } catch (UnsupportedOperationException ignored) {}
+                    } catch (Exception ignored) {}
                 }
             } else {
                 try {
                     setTaskbarProgressValue(102);
-                } catch (UnsupportedOperationException ignored) {}
+                } catch (Exception ignored) {}
             }
 
             if (selectedWindow != null) {
@@ -674,12 +674,12 @@ public class TimFilesUtils {
                 } catch (Exception ex) {
                     try {
                         setTaskbarRequestUserAttention(true, false);
-                    } catch (UnsupportedOperationException ignored) {}
+                    } catch (Exception ignored) {}
                 }
             } else {
                 try {
                     setTaskbarRequestUserAttention(true, false);
-                } catch (UnsupportedOperationException ignored) {}
+                } catch (Exception ignored) {}
             }
 
         } catch (FileNotFoundException e) {
@@ -716,12 +716,12 @@ public class TimFilesUtils {
                     } catch (Exception ex) {
                         try {
                             setTaskbarProgressValue((int) result);
-                        } catch (UnsupportedOperationException ignored) {}
+                        } catch (Exception ignored) {}
                     }
                 } else {
                     try {
                         setTaskbarProgressValue((int) result);
-                    } catch (UnsupportedOperationException ignored) {}
+                    } catch (Exception ignored) {}
                 }
 
                 // update progress bar
@@ -740,12 +740,12 @@ public class TimFilesUtils {
                 } catch (Exception ex) {
                     try {
                         setTaskbarProgressValue(102);
-                    } catch (UnsupportedOperationException ignored) {}
+                    } catch (Exception ignored) {}
                 }
             } else {
                 try {
                     setTaskbarProgressValue(102);
-                } catch (UnsupportedOperationException ignored) {}
+                } catch (Exception ignored) {}
             }
 
             if (selectedWindow != null) {
@@ -754,12 +754,12 @@ public class TimFilesUtils {
                 } catch (Exception ex) {
                     try {
                         setTaskbarRequestUserAttention(true, false);
-                    } catch (UnsupportedOperationException ignored) {}
+                    } catch (Exception ignored) {}
                 }
             } else {
                 try {
                     setTaskbarRequestUserAttention(true, false);
-                } catch (UnsupportedOperationException ignored) {}
+                } catch (Exception ignored) {}
             }
 
         } catch (FileNotFoundException e) {
@@ -818,12 +818,12 @@ public class TimFilesUtils {
                 } catch (Exception ex) {
                     try {
                         setTaskbarProgressValue((int) result);
-                    } catch (UnsupportedOperationException ignored) {}
+                    } catch (Exception ignored) {}
                 }
             } else {
                 try {
                     setTaskbarProgressValue((int) result);
-                } catch (UnsupportedOperationException ignored) {}
+                } catch (Exception ignored) {}
             }
 
             // update progress bar
@@ -841,12 +841,12 @@ public class TimFilesUtils {
             } catch (Exception ex) {
                 try {
                     setTaskbarProgressValue(102);
-                } catch (UnsupportedOperationException ignored) {}
+                } catch (Exception ignored) {}
             }
         } else {
             try {
                 setTaskbarProgressValue(102);
-            } catch (UnsupportedOperationException ignored) {}
+            } catch (Exception ignored) {}
         }
 
         if (selectedWindow != null) {
@@ -855,12 +855,12 @@ public class TimFilesUtils {
             } catch (Exception ex) {
                 try {
                     setTaskbarRequestUserAttention(true, false);
-                } catch (UnsupportedOperationException ignored) {}
+                } catch (Exception ignored) {}
             }
         } else {
             try {
                 setTaskbarRequestUserAttention(true, false);
-            } catch (UnsupportedOperationException ignored) {}
+            } catch (Exception ignored) {}
         }
 
     }
@@ -890,12 +890,12 @@ public class TimFilesUtils {
                 } catch (Exception ex) {
                     try {
                         setTaskbarProgressValue((int) result);
-                    } catch (UnsupportedOperationException ignored) {}
+                    } catch (Exception ignored) {}
                 }
             } else {
                 try {
                     setTaskbarProgressValue((int) result);
-                } catch (UnsupportedOperationException ignored) {}
+                } catch (Exception ignored) {}
             }
 
             // update progress bar
@@ -915,12 +915,12 @@ public class TimFilesUtils {
             } catch (Exception ex) {
                 try {
                     setTaskbarProgressValue(102);
-                } catch (UnsupportedOperationException ignored) {}
+                } catch (Exception ignored) {}
             }
         } else {
             try {
                 setTaskbarProgressValue(102);
-            } catch (UnsupportedOperationException ignored) {}
+            } catch (Exception ignored) {}
         }
 
         if (selectedWindow != null) {
@@ -929,12 +929,12 @@ public class TimFilesUtils {
             } catch (Exception ex) {
                 try {
                     setTaskbarRequestUserAttention(true, false);
-                } catch (UnsupportedOperationException ignored) {}
+                } catch (Exception ignored) {}
             }
         } else {
             try {
                 setTaskbarRequestUserAttention(true, false);
-            } catch (UnsupportedOperationException ignored) {}
+            } catch (Exception ignored) {}
         }
 
     }
@@ -965,12 +965,12 @@ public class TimFilesUtils {
                 } catch (Exception ex) {
                     try {
                         setTaskbarProgressValue((int) result);
-                    } catch (UnsupportedOperationException ignored) {}
+                    } catch (Exception ignored) {}
                 }
             } else {
                 try {
                     setTaskbarProgressValue((int) result);
-                } catch (UnsupportedOperationException ignored) {}
+                } catch (Exception ignored) {}
             }
 
             // update progress bar
@@ -990,12 +990,12 @@ public class TimFilesUtils {
             } catch (Exception ex) {
                 try {
                     setTaskbarProgressValue(102);
-                } catch (UnsupportedOperationException ignored) {}
+                } catch (Exception ignored) {}
             }
         } else {
             try {
                 setTaskbarProgressValue(102);
-            } catch (UnsupportedOperationException ignored) {}
+            } catch (Exception ignored) {}
         }
 
         if (selectedWindow != null) {
@@ -1004,12 +1004,12 @@ public class TimFilesUtils {
             } catch (Exception ex) {
                 try {
                     setTaskbarRequestUserAttention(true, false);
-                } catch (UnsupportedOperationException ignored) {}
+                } catch (Exception ignored) {}
             }
         } else {
             try {
                 setTaskbarRequestUserAttention(true, false);
-            } catch (UnsupportedOperationException ignored) {}
+            } catch (Exception ignored) {}
         }
 
     }
@@ -1040,12 +1040,12 @@ public class TimFilesUtils {
                 } catch (Exception ex) {
                     try {
                         setTaskbarProgressValue((int) result);
-                    } catch (UnsupportedOperationException ignored) {}
+                    } catch (Exception ignored) {}
                 }
             } else {
                 try {
                     setTaskbarProgressValue((int) result);
-                } catch (UnsupportedOperationException ignored) {}
+                } catch (Exception ignored) {}
             }
 
             // update progress bar
@@ -1063,12 +1063,12 @@ public class TimFilesUtils {
             } catch (Exception ex) {
                 try {
                     setTaskbarProgressValue(102);
-                } catch (UnsupportedOperationException ignored) {}
+                } catch (Exception ignored) {}
             }
         } else {
             try {
                 setTaskbarProgressValue(102);
-            } catch (UnsupportedOperationException ignored) {}
+            } catch (Exception ignored) {}
         }
 
         if (selectedWindow != null) {
@@ -1077,12 +1077,12 @@ public class TimFilesUtils {
             } catch (Exception ex) {
                 try {
                     setTaskbarRequestUserAttention(true, false);
-                } catch (UnsupportedOperationException ignored) {}
+                } catch (Exception ignored) {}
             }
         } else {
             try {
                 setTaskbarRequestUserAttention(true, false);
-            } catch (UnsupportedOperationException ignored) {}
+            } catch (Exception ignored) {}
         }
 
     }
@@ -1113,12 +1113,12 @@ public class TimFilesUtils {
                 } catch (Exception ex) {
                     try {
                         setTaskbarProgressValue((int) result);
-                    } catch (UnsupportedOperationException ignored) {}
+                    } catch (Exception ignored) {}
                 }
             } else {
                 try {
                     setTaskbarProgressValue((int) result);
-                } catch (UnsupportedOperationException ignored) {}
+                } catch (Exception ignored) {}
             }
 
             // update progress bar
@@ -1138,12 +1138,12 @@ public class TimFilesUtils {
             } catch (Exception ex) {
                 try {
                     setTaskbarProgressValue(102);
-                } catch (UnsupportedOperationException ignored) {}
+                } catch (Exception ignored) {}
             }
         } else {
             try {
                 setTaskbarProgressValue(102);
-            } catch (UnsupportedOperationException ignored) {}
+            } catch (Exception ignored) {}
         }
 
         if (selectedWindow != null) {
@@ -1152,12 +1152,12 @@ public class TimFilesUtils {
             } catch (Exception ex) {
                 try {
                     setTaskbarRequestUserAttention(true, false);
-                } catch (UnsupportedOperationException ignored) {}
+                } catch (Exception ignored) {}
             }
         } else {
             try {
                 setTaskbarRequestUserAttention(true, false);
-            } catch (UnsupportedOperationException ignored) {}
+            } catch (Exception ignored) {}
         }
 
     }
@@ -1188,12 +1188,12 @@ public class TimFilesUtils {
                 } catch (Exception ex) {
                     try {
                         setTaskbarProgressValue((int) result);
-                    } catch (UnsupportedOperationException ignored) {}
+                    } catch (Exception ignored) {}
                 }
             } else {
                 try {
                     setTaskbarProgressValue((int) result);
-                } catch (UnsupportedOperationException ignored) {}
+                } catch (Exception ignored) {}
             }
 
             // update progress bar
@@ -1213,12 +1213,12 @@ public class TimFilesUtils {
             } catch (Exception ex) {
                 try {
                     setTaskbarProgressValue(102);
-                } catch (UnsupportedOperationException ignored) {}
+                } catch (Exception ignored) {}
             }
         } else {
             try {
                 setTaskbarProgressValue(102);
-            } catch (UnsupportedOperationException ignored) {}
+            } catch (Exception ignored) {}
         }
 
         if (selectedWindow != null) {
@@ -1227,12 +1227,12 @@ public class TimFilesUtils {
             } catch (Exception ex) {
                 try {
                     setTaskbarRequestUserAttention(true, false);
-                } catch (UnsupportedOperationException ignored) {}
+                } catch (Exception ignored) {}
             }
         } else {
             try {
                 setTaskbarRequestUserAttention(true, false);
-            } catch (UnsupportedOperationException ignored) {}
+            } catch (Exception ignored) {}
         }
 
     }
@@ -1263,12 +1263,12 @@ public class TimFilesUtils {
                 } catch (Exception ex) {
                     try {
                         setTaskbarProgressValue((int) result);
-                    } catch (UnsupportedOperationException ignored) {}
+                    } catch (Exception ignored) {}
                 }
             } else {
                 try {
                     setTaskbarProgressValue((int) result);
-                } catch (UnsupportedOperationException ignored) {}
+                } catch (Exception ignored) {}
             }
 
             // update progress bar
@@ -1286,12 +1286,12 @@ public class TimFilesUtils {
             } catch (Exception ex) {
                 try {
                     setTaskbarProgressValue(102);
-                } catch (UnsupportedOperationException ignored) {}
+                } catch (Exception ignored) {}
             }
         } else {
             try {
                 setTaskbarProgressValue(102);
-            } catch (UnsupportedOperationException ignored) {}
+            } catch (Exception ignored) {}
         }
 
         if (selectedWindow != null) {
@@ -1300,12 +1300,12 @@ public class TimFilesUtils {
             } catch (Exception ex) {
                 try {
                     setTaskbarRequestUserAttention(true, false);
-                } catch (UnsupportedOperationException ignored) {}
+                } catch (Exception ignored) {}
             }
         } else {
             try {
                 setTaskbarRequestUserAttention(true, false);
-            } catch (UnsupportedOperationException ignored) {}
+            } catch (Exception ignored) {}
         }
 
     }
@@ -1336,12 +1336,12 @@ public class TimFilesUtils {
                 } catch (Exception ex) {
                     try {
                         setTaskbarProgressValue((int) result);
-                    } catch (UnsupportedOperationException ignored) {}
+                    } catch (Exception ignored) {}
                 }
             } else {
                 try {
                     setTaskbarProgressValue((int) result);
-                } catch (UnsupportedOperationException ignored) {}
+                } catch (Exception ignored) {}
             }
 
             // update progress bar
@@ -1361,12 +1361,12 @@ public class TimFilesUtils {
             } catch (Exception ex) {
                 try {
                     setTaskbarProgressValue(102);
-                } catch (UnsupportedOperationException ignored) {}
+                } catch (Exception ignored) {}
             }
         } else {
             try {
                 setTaskbarProgressValue(102);
-            } catch (UnsupportedOperationException ignored) {}
+            } catch (Exception ignored) {}
         }
 
         if (selectedWindow != null) {
@@ -1375,12 +1375,12 @@ public class TimFilesUtils {
             } catch (Exception ex) {
                 try {
                     setTaskbarRequestUserAttention(true, false);
-                } catch (UnsupportedOperationException ignored) {}
+                } catch (Exception ignored) {}
             }
         } else {
             try {
                 setTaskbarRequestUserAttention(true, false);
-            } catch (UnsupportedOperationException ignored) {}
+            } catch (Exception ignored) {}
         }
 
     }
@@ -1411,12 +1411,12 @@ public class TimFilesUtils {
                 } catch (Exception ex) {
                     try {
                         setTaskbarProgressValue((int) result);
-                    } catch (UnsupportedOperationException ignored) {}
+                    } catch (Exception ignored) {}
                 }
             } else {
                 try {
                     setTaskbarProgressValue((int) result);
-                } catch (UnsupportedOperationException ignored) {}
+                } catch (Exception ignored) {}
             }
 
             // update progress bar
@@ -1436,12 +1436,12 @@ public class TimFilesUtils {
             } catch (Exception ex) {
                 try {
                     setTaskbarProgressValue(102);
-                } catch (UnsupportedOperationException ignored) {}
+                } catch (Exception ignored) {}
             }
         } else {
             try {
                 setTaskbarProgressValue(102);
-            } catch (UnsupportedOperationException ignored) {}
+            } catch (Exception ignored) {}
         }
 
         if (selectedWindow != null) {
@@ -1450,12 +1450,12 @@ public class TimFilesUtils {
             } catch (Exception ex) {
                 try {
                     setTaskbarRequestUserAttention(true, false);
-                } catch (UnsupportedOperationException ignored) {}
+                } catch (Exception ignored) {}
             }
         } else {
             try {
                 setTaskbarRequestUserAttention(true, false);
-            } catch (UnsupportedOperationException ignored) {}
+            } catch (Exception ignored) {}
         }
 
     }
@@ -1486,12 +1486,12 @@ public class TimFilesUtils {
                 } catch (Exception ex) {
                     try {
                         setTaskbarProgressValue((int) result);
-                    } catch (UnsupportedOperationException ignored) {}
+                    } catch (Exception ignored) {}
                 }
             } else {
                 try {
                     setTaskbarProgressValue((int) result);
-                } catch (UnsupportedOperationException ignored) {}
+                } catch (Exception ignored) {}
             }
 
             // update progress bar
@@ -1509,12 +1509,12 @@ public class TimFilesUtils {
             } catch (Exception ex) {
                 try {
                     setTaskbarProgressValue(102);
-                } catch (UnsupportedOperationException ignored) {}
+                } catch (Exception ignored) {}
             }
         } else {
             try {
                 setTaskbarProgressValue(102);
-            } catch (UnsupportedOperationException ignored) {}
+            } catch (Exception ignored) {}
         }
 
         if (selectedWindow != null) {
@@ -1523,12 +1523,12 @@ public class TimFilesUtils {
             } catch (Exception ex) {
                 try {
                     setTaskbarRequestUserAttention(true, false);
-                } catch (UnsupportedOperationException ignored) {}
+                } catch (Exception ignored) {}
             }
         } else {
             try {
                 setTaskbarRequestUserAttention(true, false);
-            } catch (UnsupportedOperationException ignored) {}
+            } catch (Exception ignored) {}
         }
 
     }
@@ -1559,12 +1559,12 @@ public class TimFilesUtils {
                 } catch (Exception ex) {
                     try {
                         setTaskbarProgressValue((int) result);
-                    } catch (UnsupportedOperationException ignored) {}
+                    } catch (Exception ignored) {}
                 }
             } else {
                 try {
                     setTaskbarProgressValue((int) result);
-                } catch (UnsupportedOperationException ignored) {}
+                } catch (Exception ignored) {}
             }
 
             // update progress bar
@@ -1584,12 +1584,12 @@ public class TimFilesUtils {
             } catch (Exception ex) {
                 try {
                     setTaskbarProgressValue(102);
-                } catch (UnsupportedOperationException ignored) {}
+                } catch (Exception ignored) {}
             }
         } else {
             try {
                 setTaskbarProgressValue(102);
-            } catch (UnsupportedOperationException ignored) {}
+            } catch (Exception ignored) {}
         }
 
         if (selectedWindow != null) {
@@ -1598,12 +1598,12 @@ public class TimFilesUtils {
             } catch (Exception ex) {
                 try {
                     setTaskbarRequestUserAttention(true, false);
-                } catch (UnsupportedOperationException ignored) {}
+                } catch (Exception ignored) {}
             }
         } else {
             try {
                 setTaskbarRequestUserAttention(true, false);
-            } catch (UnsupportedOperationException ignored) {}
+            } catch (Exception ignored) {}
         }
 
     }
@@ -1634,12 +1634,12 @@ public class TimFilesUtils {
                 } catch (Exception ex) {
                     try {
                         setTaskbarProgressValue((int) result);
-                    } catch (UnsupportedOperationException ignored) {}
+                    } catch (Exception ignored) {}
                 }
             } else {
                 try {
                     setTaskbarProgressValue((int) result);
-                } catch (UnsupportedOperationException ignored) {}
+                } catch (Exception ignored) {}
             }
 
             // update progress bar
@@ -1659,12 +1659,12 @@ public class TimFilesUtils {
             } catch (Exception ex) {
                 try {
                     setTaskbarProgressValue(102);
-                } catch (UnsupportedOperationException ignored) {}
+                } catch (Exception ignored) {}
             }
         } else {
             try {
                 setTaskbarProgressValue(102);
-            } catch (UnsupportedOperationException ignored) {}
+            } catch (Exception ignored) {}
         }
 
         if (selectedWindow != null) {
@@ -1673,12 +1673,12 @@ public class TimFilesUtils {
             } catch (Exception ex) {
                 try {
                     setTaskbarRequestUserAttention(true, false);
-                } catch (UnsupportedOperationException ignored) {}
+                } catch (Exception ignored) {}
             }
         } else {
             try {
                 setTaskbarRequestUserAttention(true, false);
-            } catch (UnsupportedOperationException ignored) {}
+            } catch (Exception ignored) {}
         }
 
     }
@@ -1709,12 +1709,12 @@ public class TimFilesUtils {
                 } catch (Exception ex) {
                     try {
                         setTaskbarProgressValue((int) result);
-                    } catch (UnsupportedOperationException ignored) {}
+                    } catch (Exception ignored) {}
                 }
             } else {
                 try {
                     setTaskbarProgressValue((int) result);
-                } catch (UnsupportedOperationException ignored) {}
+                } catch (Exception ignored) {}
             }
 
             // update progress bar
@@ -1732,12 +1732,12 @@ public class TimFilesUtils {
             } catch (Exception ex) {
                 try {
                     setTaskbarProgressValue(102);
-                } catch (UnsupportedOperationException ignored) {}
+                } catch (Exception ignored) {}
             }
         } else {
             try {
                 setTaskbarProgressValue(102);
-            } catch (UnsupportedOperationException ignored) {}
+            } catch (Exception ignored) {}
         }
 
         if (selectedWindow != null) {
@@ -1746,12 +1746,12 @@ public class TimFilesUtils {
             } catch (Exception ex) {
                 try {
                     setTaskbarRequestUserAttention(true, false);
-                } catch (UnsupportedOperationException ignored) {}
+                } catch (Exception ignored) {}
             }
         } else {
             try {
                 setTaskbarRequestUserAttention(true, false);
-            } catch (UnsupportedOperationException ignored) {}
+            } catch (Exception ignored) {}
         }
 
     }
