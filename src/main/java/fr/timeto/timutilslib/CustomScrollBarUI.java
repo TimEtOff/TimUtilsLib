@@ -183,7 +183,7 @@ public class CustomScrollBarUI extends BasicScrollBarUI {
                         Color buttonShadowColor,
                         Color buttonDarkShadowColor,
                         Color buttonHighlightColor) {
-       
+
         if (trackColor != null) {
             staticTrackColor = trackColor;
         }

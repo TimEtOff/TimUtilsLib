@@ -61,7 +61,7 @@ public class PopUpMessages extends JPanel implements SwingerEventListener {
         return frame;
     }
 
-    private static WindowListener exitListener = new WindowAdapter() {
+    private static final WindowListener exitListener = new WindowAdapter() {
 
         @Override
         public void windowClosing(WindowEvent e) {
@@ -145,6 +145,7 @@ public class PopUpMessages extends JPanel implements SwingerEventListener {
     }
 
     public static JFrame normalMessage(String title, String message) {
+        whenOk = new Thread();
         return initFrame(title, message, NORMAL_MESSAGE);
     }
 
@@ -154,6 +155,7 @@ public class PopUpMessages extends JPanel implements SwingerEventListener {
     }
 
     public static JFrame errorMessage(String title, String message) {
+        whenOk = new Thread();
         return initFrame(title, message, ERROR_MESSAGE);
     }
 
@@ -163,6 +165,7 @@ public class PopUpMessages extends JPanel implements SwingerEventListener {
     }
 
     public static JFrame doneMessage(String title, String message) {
+        whenOk = new Thread();
         return initFrame(title, message, DONE_MESSAGE);
     }
 
@@ -174,6 +177,7 @@ public class PopUpMessages extends JPanel implements SwingerEventListener {
     public static JFrame yesNoMessage(String title, String message, Thread ifYes, Thread ifNo) {
         ifYesThread = ifYes;
         ifNoThread = ifNo;
+        whenOk = new Thread();
 
         return initFrame(title, message, YES_NO_QUESTION);
     }
@@ -218,19 +222,20 @@ public class PopUpMessages extends JPanel implements SwingerEventListener {
             public View create(Element elem) {
                 String kind = elem.getName();
                 if (kind != null) {
-                    if (kind.equals(AbstractDocument.ContentElementName)) {
+                    switch (kind) {
+                        case AbstractDocument.ContentElementName:
 
-                        return new LabelView(elem);
-                    } else if (kind.equals(AbstractDocument.ParagraphElementName)) {
-                        return new ParagraphView(elem);
-                    } else if (kind.equals(AbstractDocument.SectionElementName)) {
+                            return new LabelView(elem);
+                        case AbstractDocument.ParagraphElementName:
+                            return new ParagraphView(elem);
+                        case AbstractDocument.SectionElementName:
 
-                        return new CenteredBoxView(elem, View.Y_AXIS);
-                    } else if (kind.equals(StyleConstants.ComponentElementName)) {
-                        return new ComponentView(elem);
-                    } else if (kind.equals(StyleConstants.IconElementName)) {
+                            return new CenteredBoxView(elem, View.Y_AXIS);
+                        case StyleConstants.ComponentElementName:
+                            return new ComponentView(elem);
+                        case StyleConstants.IconElementName:
 
-                        return new IconView(elem);
+                            return new IconView(elem);
                     }
                 }
 
@@ -240,7 +245,7 @@ public class PopUpMessages extends JPanel implements SwingerEventListener {
         }
     }
 
-    class CenteredBoxView extends BoxView {
+    static class CenteredBoxView extends BoxView {
         public CenteredBoxView(Element elem, int axis) {
 
             super(elem, axis);
@@ -253,8 +258,8 @@ public class PopUpMessages extends JPanel implements SwingerEventListener {
             int textBlockHeight = 0;
             int offset = 0;
 
-            for (int i = 0; i < spans.length; i++) {
-                textBlockHeight += spans[i];
+            for (int span : spans) {
+                textBlockHeight += span;
             }
             offset = (targetSpan - textBlockHeight) / 2;
             for (int i = 0; i < offsets.length; i++) {
